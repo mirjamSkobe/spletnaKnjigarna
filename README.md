@@ -11,5 +11,4 @@ Lastnik spletne trgovine želi imeti pregled nad inventuro knjig, ki jih lahko d
 - tabela Knjige (ID knjige, naslov, avtor, žanr, leto izdaje, format, kratek opis, cena, količina)
 - tabela Kupci (ID kupca, ime, priimek, e-mail, naslov, telefon)
 - tabela Dobavitelji (ID dobavitelja, ime podjetja, naslov, e-mail, telefon, kaj dobavljajo)
-- tabela Zaloga (ID knjige, količina, na zalogi(da/ne))
 - tabela Pošiljk (ID pošiljke, ID kupca, ID knjige)
