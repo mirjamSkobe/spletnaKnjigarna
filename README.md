@@ -13,4 +13,4 @@ Lastnik spletne trgovine želi imeti pregled nad inventuro knjig, ki jih lahko d
 - tabela Dobavitelji (ID dobavitelja, ime podjetja, naslov, e-mail, telefon, kaj dobavljajo)
 - tabela Pošiljk (ID pošiljke, ID kupca, ID knjige)
 
-![ER diagram](spletna_knjigarna_ER_diagram.png)
+![ER diagram](spletnaKnjigarna_ER_diagram.png)
