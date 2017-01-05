@@ -5,8 +5,8 @@ import modeli
 @route('/')
 def domaca_stran():
     return template(
-        'seznam_knjig',
-        knjiga=modeli.seznam_knjig(),
+        'seznam_knjig.tpl',
+        knjige=modeli.seznam_knjig(),
     )
 
 run(debug=True)
