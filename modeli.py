@@ -9,3 +9,11 @@ def seznam_knjig():
         FROM knjiga JOIN zanr ON (knjiga.zanr = zanr.ID)
     '''
     return list(con.execute(sql))
+
+def registracija(uporabnisko_ime, geslo, email, naslov, telefon):
+    sql = '''
+        UPDATE kupec
+        SET uporabnisko_ime = ?, geslo = ?, email = ?, naslov = ?, telefon = ?
+    '''
+    con.execute(sql, [uporabnisko_ime, geslo, email, naslov, telefon])
+    con.commit()
