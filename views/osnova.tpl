@@ -1,36 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <style>
-        body {
-			position:absolute;
-			left:0px;
-			top:0px;
-			width:100%;
-			height:100%;
-			background:url(https://upload.wikimedia.org/wikipedia/commons/4/4b/Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg) no-repeat 0% 0%;
-			background-size:cover;
-			}
-		</body>
-		#centered {
-		  position: fixed;
-		  top: 50%;
-		  left: 50%;
-		  margin-top: -50px;
-		  margin-left: -100px;
-		}
-		
-		#content {
-			max-width: 1000px;
-			margin: auto;
-			left: 1%;
-			right: 1%;
-			position: absolute;
-		}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+
+<style>
+	.bar1, .bar2, .bar3 {
+		width: 25px;
+		height: 3px;
+		background-color: black;
+		margin: 3px 0;
+	}
+
+	.button {
+	  border-radius: 4px;
+	  background-color: #f4511e;
+	  border: none;
+	  color: #FFFFFF;
+	  text-align: center;
+	  font-size: 28px;
+	  padding: 20px;
+	  width: 300px;
+	  transition: all 0.5s;
+	  cursor: pointer;
+	  margin: 50px 230px 50px 230px;
+	}
+
+	.button span {
+	  cursor: pointer;
+	  display: inline-block;
+	  position: relative;
+	  transition: 0.5s;
+	}
+
+	.button span:after {
+	  content: '\00bb';
+	  position: absolute;
+	  opacity: 0;
+	  top: 0;
+	  right: -20px;
+	  transition: 0.5s;
+	}
+
+	.button:hover span {
+	  padding-right: 25px;
+	}
+
+	.button:hover span:after {
+	  opacity: 1;
+	  right: 0;
+	}
+
+	.content {
+		max-width: 500px;
+		margin: auto;
+	}
+	table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			margin: 20px 200px;
+			overflow-y:scroll;
+			height:430px;
+			display:block;
+	}
+
+	td, th {
+		border: 1px solid black;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+</style>
 </head>
 
 <body>
