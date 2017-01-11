@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
+
 <body>
 
 <nav>
@@ -20,25 +21,42 @@
 </nav>
 
 <section>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg" width="1600"  height="500">
+  <img src="http://scholarschoice.com/Portals/35/Images/The-Scholars-Choice-Books.jpg" width="1600">
 </section>
 
-<div position:relative; text-align:center">
-
-<section>
-	<button class="button">
-		<span><a href="/stran_za_kupca?">
-				<div align = center class="card-panel black"><h3>VSTOP ZA KUPCE</h3></div>
-			  </a></span></button>
-	<button class="button">
-		<span><a href="/stran_za_knjigarnarja?">
-				<div align = center class="card-panel black"><h3>VSTOP ZA KNJIGARNARJA</h3></div>
-			  </a></span></button>
-</section>
-
-</div>
-
-<footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
+<section class="container">
+	<table>
+		<tr>
+			<th>Avtor</th>
+			<th>Naslov knjige</th>
+			<th>Žanr</th>
+			<th>Cena</th>
+			<th>Na zalogi</th>
+		</tr>
+		<tbody>
+			% for knjiga1 in knjige1:
+			 <tr>
+			 <td>
+			 {{knjiga1['avtor']}}
+			 </td>
+			 <td>
+			 {{knjiga1['naslov']}}
+			 </td>
+			 <td>
+			 {{knjiga1['zanr']}}
+			 </td>
+			 <td>
+			 {{knjiga1['cena']}} €
+			 </td>
+			 <td>
+			 {{knjiga1['st_naZalogi']}}
+			 </td></tr>
+			 % end
+	  </tbody>
+	</table>
+ </section>
+ 
+ <footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>
   <a href="#"><i class="fa fa-twitter"></i></a>
@@ -46,8 +64,5 @@
   <a href="#"><i class="fa fa-linkedin"></i></a>
 </footer>
 
-
-
 </body>
 </html>
-

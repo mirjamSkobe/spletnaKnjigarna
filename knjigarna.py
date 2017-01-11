@@ -6,7 +6,7 @@ import modeli
 @route('/')
 def domaca_stran():
     return template(
-        'domaca',
+        'domaca_stran',
         kupec = modeli.seznam_knjig_kupec(),
         knjigarnar = modeli.seznam_knjig_knjigarnar(),
     )
