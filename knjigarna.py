@@ -1,15 +1,34 @@
-from bottle import route, run, template, post
+from bottle import *
 import modeli
 
 
+##--> DOMAČA STRAN <--##
 @route('/')
 def domaca_stran():
     return template(
-        'seznam_knjig.tpl',
-        knjige=modeli.seznam_knjig(),
+        'domaca',
+        kupec = modeli.seznam_knjig_kupec(),
+        knjigarnar = modeli.seznam_knjig_knjigarnar(),
+    )
+##--> VSTOP ZA KUPCA <--##
+@route('/stran_za_kupca')
+def stran_za_kupca():
+    return template(
+        'seznam_knjig_kupec',
+        knjige1 = modeli.seznam_knjig_kupec(),
     )
 
-@route('/registracija')
+##--> VSTOP ZA KNJIGARNARJA <--##
+@route('/stran_za_knjigarnarja')
+def stran_za_knjigarnarja():
+    return template(
+        'seznam_knjig_knjigarnar',
+        knjige2 = modeli.seznam_knjig_knjigarnar(),
+    )
+
+
+##--> REGISTRACIJA KUPCA <--##
+@route('/stran_za_kupca/registracija')
 def registracija():
     return template(
         'registracija.tpl'
