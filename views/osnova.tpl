@@ -8,6 +8,28 @@
 </head>
 
 <style>
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		background-color: #333;
+		position: fixed;
+		top: 0;
+		width: 100%;
+	}
+
+	li {
+		float: left;
+	}
+
+	li a {
+		display: block;
+		color: white;
+		padding: 16px;
+		text-decoration: none;
+	}
+
 	.bar1, .bar2, .bar3 {
 		width: 25px;
 		height: 3px;
@@ -26,7 +48,7 @@
 	  width: 300px;
 	  transition: all 0.5s;
 	  cursor: pointer;
-	  margin: 50px 230px 50px 230px;
+	  margin: 50px 150px 50px 150px;
 	}
 
 	.button span {

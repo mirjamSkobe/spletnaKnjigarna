@@ -11,7 +11,7 @@
 <body>
 
 <nav>
-  <ul class="w3-navbar w3-black">
+  <ul>
 	<li><a href="/"><div class="bar1"></div>
 					<div class="bar2"></div>
 					<div class="bar3"></div></a></li>
@@ -21,7 +21,7 @@
 </nav>
 
 <section>
-  <img src="http://scholarschoice.com/Portals/35/Images/The-Scholars-Choice-Books.jpg" width="1600">
+  <img src="http://scholarschoice.com/Portals/35/Images/The-Scholars-Choice-Books.jpg" width=screen.availWidth height="350">
 </section>
 
 <section class="container">
