@@ -11,7 +11,7 @@
 <body>
 
 <nav>
-  <ul class="w3-navbar w3-black">
+  <ul>
 	<li><a href="/"><div class="bar1"></div>
 					<div class="bar2"></div>
 					<div class="bar3"></div></a></li>
@@ -21,11 +21,10 @@
 </nav>
 
 <section>
-  <img src="http://allegralaboratory.net/wp-content/uploads/2014/04/Books-05-2000.jpg" width="1600" height="430">
+  <img src="http://marthaslibrary.com/wp-content/uploads/2015/06/book.png" width=screen.availWidth height="500">
 </section>
 
 <section class="container">
-  <h3>KNJIGARNA</h3>
   <table class="striped bordered">
   <thead>
 	 <tr><th>Avtor</th><th>Naslov knjige</th><th>Žanr</th><th>Cena</th><th>Na zalogi</th></tr>

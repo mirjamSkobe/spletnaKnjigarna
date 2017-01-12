@@ -10,7 +10,7 @@
 <body>
 
 <nav>
-  <ul class="w3-navbar w3-black">
+  <ul>
 	<li><a href="/"><div class="bar1"></div>
 					<div class="bar2"></div>
 					<div class="bar3"></div></a></li>
@@ -19,24 +19,21 @@
   </ul>
 </nav>
 
-<section>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg" width="1600"  height="500">
-</section>
-
-<div position:relative; text-align:center">
 
 <section>
-	<button class="button">
-		<span><a href="/stran_za_kupca?">
-				<div align = center class="card-panel black"><h3>VSTOP ZA KUPCE</h3></div>
-			  </a></span></button>
-	<button class="button">
-		<span><a href="/stran_za_knjigarnarja?">
-				<div align = center class="card-panel black"><h3>VSTOP ZA KNJIGARNARJA</h3></div>
-			  </a></span></button>
+  <img src="http://writersrelief.com/wp-content/uploads/2016/02/peabody1.jpg" width=screen.availWidth  height="600">
 </section>
 
-</div>
+<section>
+	<a href="/stran_za_kupca?"><button class="button">
+		<span>
+			<div align = center class="card-panel black"><h3>VSTOP ZA KUPCE</h3></div>
+			</span></button></a>
+	<a href="/stran_za_knjigarnarja?"><button class="button">
+		<span>
+			<div align = center class="card-panel black"><h3>VSTOP ZA KNJIGARNARJA</h3></div>
+			</span></button></a>
+</section>
 
 <footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
   <a href="#"><i class="fa fa-facebook-official"></i></a>
@@ -45,7 +42,6 @@
   <a href="#"><i class="fa fa-flickr"></i></a>
   <a href="#"><i class="fa fa-linkedin"></i></a>
 </footer>
-
 
 
 </body>
