@@ -21,7 +21,15 @@
 </nav>
 
 <section>
-  <img src="http://scholarschoice.com/Portals/35/Images/The-Scholars-Choice-Books.jpg" width=screen.availWidth height="350">
+	<img src="http://scholarschoice.com/Portals/35/Images/The-Scholars-Choice-Books.jpg" width=screen.availWidth height="350">
+	<a href="/stran_za_kupca/registracija?"><button class="button">
+	<span>
+		<div align = center class="card-panel black"><h3>REGISTRIRAJ SE</h3></div>
+		</span></button></a>
+	<a href="/stran_za_kupca/vpis?"><button class="button">
+	<span>
+		<div align = center class="card-panel black"><h3>VPIŠI SE</h3></div>
+		</span></button></a>
 </section>
 
 <section class="container">
@@ -31,7 +39,6 @@
 			<th>Naslov knjige</th>
 			<th>Žanr</th>
 			<th>Cena</th>
-			<th>Na zalogi</th>
 		</tr>
 		<tbody>
 			% for knjiga1 in knjige1:
@@ -40,16 +47,15 @@
 			 {{knjiga1['avtor']}}
 			 </td>
 			 <td>
-			 {{knjiga1['naslov']}}
+				<a href="/stran_za_kupca/naslov=knjiga1['id']">
+				{{knjiga1['naslov']}}
+				</a>
 			 </td>
 			 <td>
 			 {{knjiga1['zanr']}}
 			 </td>
 			 <td>
 			 {{knjiga1['cena']}} €
-			 </td>
-			 <td>
-			 {{knjiga1['st_naZalogi']}}
 			 </td></tr>
 			 % end
 	  </tbody>
