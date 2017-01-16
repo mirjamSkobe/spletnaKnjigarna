@@ -21,45 +21,35 @@
 </nav>
 
 <section>
-	<img src="http://scholarschoice.com/Portals/35/Images/The-Scholars-Choice-Books.jpg" width=screen.availWidth height="350">
-	<a href="/stran_za_kupca/registracija?"><button class="button">
-	<span>
-		<div align = center class="card-panel black"><h3>REGISTRIRAJ SE</h3></div>
-		</span></button></a>
-	<a href="/stran_za_kupca/vpis?"><button class="button">
-	<span>
-		<div align = center class="card-panel black"><h3>VPIŠI SE</h3></div>
-		</span></button></a>
+  <img src="http://marthaslibrary.com/wp-content/uploads/2015/06/book.png" width=screen.availWidth height="500">
 </section>
 
 <section class="container">
-	<table>
-		<tr>
-			<th>Avtor</th>
-			<th>Naslov knjige</th>
-			<th>Žanr</th>
-			<th>Cena</th>
-		</tr>
-		<tbody>
-			% for knjiga1 in knjige1:
-			 <tr>
-			 <td>
-			 {{knjiga1['avtor']}}
-			 </td>
-			 <td>
-				<a href="/stran_za_kupca/naslov=knjiga1['id']">
-				{{knjiga1['naslov']}}
-				</a>
-			 </td>
-			 <td>
-			 {{knjiga1['zanr']}}
-			 </td>
-			 <td>
-			 {{knjiga1['cena']}} €
-			 </td></tr>
-			 % end
-	  </tbody>
-	</table>
+  <table class="striped bordered">
+  <thead>
+	 <tr><th>Avtor</th><th>Naslov knjige</th><th>Žanr</th><th>Cena</th><th>Na zalogi</th></tr>
+  </thead>
+  <tbody>
+	 % for knjiga1 in knjige2:
+	 <tr>
+	 <td>
+	 {{knjiga1['avtor']}}
+	 </td>
+	 <td>
+	 {{knjiga1['naslov']}}
+	 </td>
+	 <td>
+	 {{knjiga1['zanr']}}
+	 </td>
+	 <td>
+	 {{knjiga1['cena']}} €
+	 </td>
+	 <td>
+	 {{knjiga1['st_naZalogi']}}
+	 </td></tr>
+	 % end
+  </tbody>
+  </table>
  </section>
  
  <footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
@@ -69,6 +59,6 @@
   <a href="#"><i class="fa fa-flickr"></i></a>
   <a href="#"><i class="fa fa-linkedin"></i></a>
 </footer>
-
+ 
 </body>
 </html>
