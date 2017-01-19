@@ -45,17 +45,17 @@ def dodaj_knjigo():
     )
 
 @post('/vstopKnjigarnar/dodaj_knjigo')
-def dodaj_knjigo():
+def dodaj_knjigo_post():
     naslov = request.forms.get('naslov')
     avtor = request.forms.get('avtor')
     zanr = request.forms.get('zanr')
     leto_izdaje = request.forms.get('leto_izdaje')
-    cena = request.forms.get('cena')
-    st_naZalogi = request.forms.get('st_naZalogi')
     formatK = request.forms.get('formatK')
     opis = request.forms.get('opis')
+    cena = request.forms.get('cena')
+    st_naZalogi = request.forms.get('st_naZalogi')
     modeli.dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi)
-    redirect('/')
+    redirect('/vstopKnjigarnar')
 
 ##--> SEZNAM DOBAVITELJEV <--##
 @route('/vstopKnjigarnar/seznam_dobavitelji')
@@ -71,6 +71,14 @@ def dodaj_dobavitelja():
     return template(
         'dodaj_dobavitelja',
     )
+
+@post('/vstopKnjigarnar/dodaj_dobavitelja')
+def dodaj_knjigo_post():
+    ime_podjetja = request.forms.get('ime_podjetja')
+    naslov = request.forms.get('naslov')
+    email = request.forms.get('email')
+    modeli.dodaj_dobavitelja(ime_podjetja, naslov, email)
+    redirect('/vstopKnjigarnar')
 
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
