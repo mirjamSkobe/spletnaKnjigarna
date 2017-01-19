@@ -6,7 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		margin: 100px 200px;
+		overflow-y:scroll;
+		height:500px;
+		display:block;
+	}
+</style>
 
 <body>
 
@@ -15,7 +24,7 @@
 	<a href="/vstopKnjigarnar/seznam_knjig_knjigarnar?">Seznam knjig</a>
 	<a href="/vstopKnjigarnar/dodaj_knjigo?">Dodaj knjigo</a>
 	<a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a>
-	<a href="#">Dodaj dobavitelja</a>
+	<a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a>
   </ul>
 </div>
 
@@ -23,12 +32,29 @@
 
 <div id="main">
 
-<div class="bg">
-  <img src="http://marthaslibrary.com/wp-content/uploads/2015/06/book.png" width=screen.availWidth height="400">
-</div>
-
+<section class="container">
+  <table>
+  <thead>
+	 <tr><th>Ime podjetja</th><th>Naslov</th><th>Naslov</th></tr>
+  </thead>
+  <tbody>
+	 % for dobavitelj in dobavitelj:
+	 <tr>
+	 <td>
+	 {{dobavitelj['ime_podjetja']}}
+	 </td>
+	 <td>
+	 {{dobavitelj['naslov']}}
+	 </td>
+	 <td>
+	 {{dobavitelj['e-mail']}}
+	 </td></tr>
+	 % end
+  </tbody>
+  </table>
+ </section>
+ 
 </div>
  
 </body>
 </html>
-

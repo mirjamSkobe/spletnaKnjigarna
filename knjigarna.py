@@ -54,6 +54,21 @@ def dodaj_knjigo():
     modeli.dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi)
     redirect('/')
 
+##--> SEZNAM DOBAVITELJEV <--##
+@route('/vstopKnjigarnar/seznam_dobavitelji')
+def seznam_dobaviteljev():
+    return template(
+        'seznam_dobavitelji',
+        dobavitelj = modeli.seznam_dobavitelji(),
+    )
+
+##--> DODAJ DOBAVITELJA <--##
+@get('/vstopKnjigarnar/dodaj_dobavitelja')
+def dodaj_dobavitelja():
+    return template(
+        'dodaj_dobavitelja',
+    )
+
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
 def registracija():

@@ -52,7 +52,7 @@
 	  width: 300px;
 	  transition: all 0.5s;
 	  cursor: pointer;
-	  margin: 50px 150px 50px 150px;
+	  margin: 50px 100px 50px 100px;
 	}
 
 	.content {
@@ -114,7 +114,7 @@
 	}
 
 	.bg {
-		margin: 0 200px 0 200px;
+		margin: 0 100px 0 100px;
 		position: center;
 	}
 </style>

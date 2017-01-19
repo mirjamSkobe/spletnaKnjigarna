@@ -56,22 +56,14 @@
 
 <div class="main">
 
-<form method="post" action="/vstopKnjigarnar/dodaj_knjigo">
+<form method="post" action="/vstopKnjigarnar/dodaj_dobavitelja">
 <div class="container">
-	<label><b>Avtor</b></label>
-	<input type="text" placeholder="Ime in priimek avtorja." name="avtor" required>
+	<label><b>Ime podjetja</b></label>
+	<input type="text" placeholder="Ime podjetja" name="ime_podjetja" required>
 	<label><b>Naslov</b></label>
 	<input type="text" placeholder="Naslov" name="naslov" required>
-	<label><b>Leto izdaje</b></label>
-	<input type="text" placeholder="Leto izdaje" name="leto_izdaje" required>
-	<label><b>Žanr</b></label>
-	<input type="text" placeholder="Žanr" name="zanr" required>
-	<label><b>Cena</b></label>
-	<input type="number" placeholder="Cena" name="cena" required>
-	<label><b>Opis</b></label>
-	<input type="text" placeholder="Opis" name="opis" required>
-	<label><b>Na zalogi</b></label>
-	<input type="number" placeholder="Koliko knjig je trenutno na zalogi." name="naZalogi" required>
+	<label><b>E-mail</b></label>
+	<input type="text" placeholder="E-mail" name="e-mail" required>
 
 	<button type="submit">Dodaj</button>
 </div>
