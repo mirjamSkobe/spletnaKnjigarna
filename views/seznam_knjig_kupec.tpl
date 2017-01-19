@@ -10,7 +10,7 @@
 	table{
 		font-family: arial, sans-serif;
 			border-collapse: collapse;
-			margin: 20px 200px;
+			margin: 20px 100px;
 			overflow-y:scroll;
 			height:430px;
 			display:block;
@@ -21,9 +21,6 @@
 
 <nav>
   <ul>
-	<li><a href="/"><div class="bar1"></div>
-					<div class="bar2"></div>
-					<div class="bar3"></div></a></li>
     <li><a href="/">Domača stran</a></li>
     <li><a href="javascript:void(0)">Kontakt</a></li>
   </ul>

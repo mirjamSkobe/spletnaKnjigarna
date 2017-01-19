@@ -2,6 +2,9 @@ from bottle import *
 import modeli
 
 
+#telefon shrani kot string
+
+
 ##--> DOMAČA STRAN <--##
 @route('/')
 def domaca_stran():

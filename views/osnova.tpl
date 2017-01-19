@@ -116,6 +116,7 @@
 	.bg {
 		margin: 0 100px 0 100px;
 		position: center;
+		margin-left: 100px;
 	}
 </style>
 </head>

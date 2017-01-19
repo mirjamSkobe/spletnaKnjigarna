@@ -126,10 +126,6 @@
 
 <nav>
   <ul>
-	<li><a href="/"><div class="bar1"></div>
-					<div class="bar2"></div>
-					<div class="bar3"></div></a></li>
-    <li><a href="/">Domača stran</a></li>
     <li><a href="javascript:void(0)">Kontakt</a></li>
   </ul>
 </nav>
