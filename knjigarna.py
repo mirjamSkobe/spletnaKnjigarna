@@ -19,13 +19,40 @@ def stran_za_kupca():
     )
 
 ##--> VSTOP ZA KNJIGARNARJA <--##
-@route('/stran_za_knjigarnarja')
+@route('/vstopKnjigarnar/seznam_knjig_knjigarnar')
 def stran_za_knjigarnarja():
     return template(
         'seznam_knjig_knjigarnar',
         knjige2 = modeli.seznam_knjig_knjigarnar(),
     )
 
+##--> VPIS KNJIGARNAR <--##
+@route('/vstopKnjigarnar')
+def vstopKnjigarnar():
+    return template(
+        'vstopKnjigarnar',
+        knjige2 = modeli.seznam_knjig_knjigarnar(),
+    )
+
+##--> DODAJ KNJIGO <--##
+@get('/vstopKnjigarnar/dodaj_knjigo')
+def dodaj_knjigo():
+    return template(
+        'dodaj_knjigo',
+    )
+
+@post('/vstopKnjigarnar/dodaj_knjigo')
+def dodaj_knjigo():
+    naslov = request.forms.get('naslov')
+    avtor = request.forms.get('avtor')
+    zanr = request.forms.get('zanr')
+    leto_izdaje = request.forms.get('leto_izdaje')
+    cena = request.forms.get('cena')
+    st_naZalogi = request.forms.get('st_naZalogi')
+    formatK = request.forms.get('formatK')
+    opis = request.forms.get('opis')
+    modeli.dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi)
+    redirect('/')
 
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
