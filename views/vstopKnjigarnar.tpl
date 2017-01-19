@@ -15,7 +15,8 @@
 	<a href="/vstopKnjigarnar/seznam_knjig_knjigarnar?">Seznam knjig</a>
 	<a href="/vstopKnjigarnar/dodaj_knjigo?">Dodaj knjigo</a>
 	<a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a>
-	<a href="#">Dodaj dobavitelja</a>
+	<a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a>
+	<a href="/vstopKnjigarnar/naroci_knjigarnar">Naroči knjge</a>
   </ul>
 </div>
 

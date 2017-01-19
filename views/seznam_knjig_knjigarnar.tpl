@@ -10,9 +10,9 @@
 	table {
 		font-family: arial, sans-serif;
 		border-collapse: collapse;
-		margin: 100px 200px;
+		margin: 100px 150px;
 		overflow-y:scroll;
-		height:500px;
+		height:700px;
 		display:block;
 	}
 </style>
@@ -25,6 +25,7 @@
 	<a href="/vstopKnjigarnar/dodaj_knjigo?">Dodaj knjigo</a>
 	<a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a>
 	<a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a>
+	<a href="/vstopKnjigarnar/naroci_knjigarnar">Naroči knjge</a>
   </ul>
 </div>
 
