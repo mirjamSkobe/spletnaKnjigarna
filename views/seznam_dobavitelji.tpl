@@ -48,7 +48,7 @@
 	 {{dobavitelj['naslov']}}
 	 </td>
 	 <td>
-	 {{dobavitelj['e-mail']}}
+	 {{dobavitelj['email']}}
 	 </td></tr>
 	 % end
   </tbody>

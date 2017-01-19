@@ -64,7 +64,7 @@
 	<label><b>Naslov</b></label>
 	<input type="text" placeholder="Naslov" name="naslov" required>
 	<label><b>E-mail</b></label>
-	<input type="text" placeholder="E-mail" name="e-mail" required>
+	<input type="text" placeholder="E-mail" name="email" required>
 
 	<button type="submit">Dodaj</button>
 </div>
