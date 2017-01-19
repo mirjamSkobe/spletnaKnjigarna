@@ -32,3 +32,11 @@ def dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZal
     sql = '''INSERT INTO knjiga (naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi) VALUES (?,?,?,?,?,?)'''
     con.execute(sql,[naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi])
     con.commit()
+
+def seznam_dobavitelji():
+    sql = '''
+        SELECT *
+        FROM dobavitelj
+        ORDER BY  ime_podjetja, naslov
+    '''
+    return list(con.execute(sql))
