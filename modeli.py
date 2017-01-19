@@ -27,3 +27,8 @@ def registracija(uporabnisko_ime, geslo, email, naslov, telefon):
     '''
     con.execute(sql, [uporabnisko_ime, geslo, email, naslov, telefon])
     con.commit()
+
+def dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi):
+    sql = '''INSERT INTO knjiga (naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi) VALUES (?,?,?,?,?,?)'''
+    con.execute(sql,[naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi])
+    con.commit()
