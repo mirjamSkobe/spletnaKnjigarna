@@ -45,3 +45,10 @@ def seznam_dobavitelji():
         ORDER BY  ime_podjetja, naslov
     '''
     return list(con.execute(sql))
+
+def kosarica():  #WHERE kupec.ID = ?
+    sql = '''
+        SELECT knjiga.ID, knjiga.naslov, knjiga.avtor, knjiga.cena
+        FROM kosarica JOIN knjiga ON (kosarica.id_knjige = knjiga.ID)
+    '''
+    return list(con.execute(sql))
