@@ -21,10 +21,7 @@ def seznam_knjig_knjigarnar():
     return list(con.execute(sql))
 
 def registracija(uporabnisko_ime, geslo, email, naslov, telefon):
-    sql = '''
-        UPDATE kupec
-        SET uporabnisko_ime = ?, geslo = ?, email = ?, naslov = ?, telefon = ?
-    '''
+    sql = '''INSERT INTO kupec (uporabnisko_ime, geslo, email, naslov, telefon) VALUES (?, ?, ?, ?, ?)'''
     con.execute(sql, [uporabnisko_ime, geslo, email, naslov, telefon])
     con.commit()
 
@@ -48,7 +45,7 @@ def seznam_dobavitelji():
 
 def kosarica():  #WHERE kupec.ID = ?
     sql = '''
-        SELECT knjiga.ID, knjiga.naslov, knjiga.avtor, knjiga.cena
+        SELECT *
         FROM kosarica JOIN knjiga ON (kosarica.id_knjige = knjiga.ID)
     '''
     return list(con.execute(sql))
