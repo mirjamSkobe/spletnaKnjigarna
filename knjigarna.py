@@ -85,8 +85,8 @@ def registracija():
     )
 
 @post('/stran_za_kupca/registracija')
-def dodaj_kupca():  #rešiti: podatek uporabnisko_ime se ne shrani v bazo
-    uporabnisko_ime = request.forms.uporabnisko_ime
+def dodaj_kupca():
+    uporabnisko_ime = request.forms.uporabnik
     geslo = kodiraj(request.forms.geslo)
     email = request.forms.email
     naslov = request.forms.naslov
@@ -98,6 +98,15 @@ def dodaj_kupca():  #rešiti: podatek uporabnisko_ime se ne shrani v bazo
 ##--> KOŠARICA <--##
 @route('/kosarica')
 def kosarica():
+    return template(
+        'kosarica',
+        knjige = modeli.kosarica()
+        )
+
+@post('/kosarica')
+def posodobi_kosarico():
+    izvodov = request.forms.izvodov
+    modeli.posodobi_kosarico(izvodov)
     return template(
         'kosarica',
         knjige = modeli.kosarica()
