@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
 	table{
 		font-family: arial, sans-serif;
@@ -45,6 +46,7 @@
 			<th>Naslov knjige</th>
 			<th>Žanr</th>
 			<th>Cena</th>
+			<th>Dodaj v košarico</th>
 		</tr>
 		<tbody>
 			% for knjiga1 in knjige1:
@@ -62,7 +64,13 @@
 			 </td>
 			 <td>
 			 {{knjiga1['cena']}} €
-			 </td></tr>
+			 </td>
+			 <td style="text-align: center; vertical-align: middle;">
+			 
+			 <a href="/kosarica"><i class="material-icons">shopping_cart</i></a>
+			 
+			 </td>
+			 </tr>
 			 % end
 	  </tbody>
 	</table>

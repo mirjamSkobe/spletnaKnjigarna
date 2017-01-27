@@ -6,7 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		margin: 100px 150px;
+		overflow-y:scroll;
+		height:300px;
+		display:block;
+	}
+</style>
 
 <body>
 
@@ -25,6 +34,9 @@
 </section>
 
 <section class="container">
+<form method="post">
+  <button type="submit">Posodobi košarico</button>
+  <button type="submit">Opravi nakup</button>
   <table class="striped bordered">
   <thead>
 	 <tr><th>Knjiga</th><th>Avtor</th><th>Število izvodov</th><th>Cena (cena za 1 izvod)</th><th>Odstrani iz košarice</th></tr>
@@ -39,17 +51,19 @@
 	 {{knjiga['avtor']}}
 	 </td>
 	 <td>
-	 1
+	 <input type="number" name="izvodov" value={{knjiga['stevilo_izvodov']}}>
 	 </td>
 	 <td>
-	 cena ({{knjiga['cena']}} €)
+	 {{knjiga['stevilo_izvodov']}} * ({{knjiga['cena']}} €)
 	 </td>
-	 <td>
+	 <td style="text-align: center; vertical-align: middle;">
 	 <input type="checkbox" name="odstrani" value="{{knjiga['ID']}}">
-	 </td></tr>
+	 </td>
+	 </tr>
 	 % end
   </tbody>
   </table>
+ </form>
  </section>
  
  <footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">

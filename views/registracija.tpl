@@ -9,24 +9,24 @@
 <div class="container">
   <form method="post">
     <div class="input-field">
-        <input placeholder="Uporabniško ime" name="uporabnik1" type="text" class="validate">
-        <label for="ime">Uporabniško ime</label>
+        <input placeholder="Uporabniško ime" name="uporabnik" type="text" class="validate">
+        <label for="uporabnik">Uporabniško ime</label>
     </div>
 	<div class="input-field">
         <input placeholder="********" name="geslo" type="text" class="validate">
-        <label for="ime">Geslo</label>
+        <label for="geslo">Geslo</label>
     </div>
 	<div class="input-field">
         <input placeholder="jaka.novak@gmail.com" name="email" type="text" class="validate">
-        <label for="ime">Email</label>
+        <label for="email">Email</label>
     </div>
 	<div class="input-field">
         <input placeholder="Jaka Novak, Tržaška 12, 1000 Ljubljana" name="naslov" type="text" class="validate">
-        <label for="ime">Naslov</label>
+        <label for="naslov">Naslov</label>
     </div>
 	<div class="input-field">
         <input placeholder="040123456" name="telefon" type="text" class="validate">
-        <label for="ime">Telefon</label>
+        <label for="telefon">Telefon</label>
     </div>
     <button class="btn waves-effect waves-light" type="submit">Pošlji podatke</button>
   </form>
