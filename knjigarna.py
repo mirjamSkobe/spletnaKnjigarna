@@ -1,10 +1,6 @@
 from bottle import *
 import modeli
 
-
-#telefon shrani kot string
-
-
 ##--> DOMAČA STRAN <--##
 @route('/')
 def domaca_stran():
@@ -12,13 +8,6 @@ def domaca_stran():
         'domaca_stran',
         kupec = modeli.seznam_knjig_kupec(),
         knjigarnar = modeli.seznam_knjig_knjigarnar(),
-    )
-##--> VSTOP ZA KUPCA <--##
-@route('/stran_za_kupca')
-def stran_za_kupca():
-    return template(
-        'seznam_knjig_kupec',
-        knjige1 = modeli.seznam_knjig_kupec(),
     )
 
 ##--> VSTOP ZA KNJIGARNARJA <--##
@@ -80,22 +69,45 @@ def dodaj_knjigo_post():
     modeli.dodaj_dobavitelja(ime_podjetja, naslov, email)
     redirect('/vstopKnjigarnar')
 
+##--> VSTOP ZA KUPCA <--##
+@route('/stran_za_kupca')
+def stran_za_kupca():
+    return template(
+        'seznam_knjig_kupec',
+        knjige1 = modeli.seznam_knjig_kupec(),
+    )
+
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
 def registracija():
     return template(
         'registracija.tpl'
-        #kupec=modeli.registracija()
     )
 
-@post('/registracija')
-def uredi_osebo_post(oseba):
+@post('/stran_za_kupca/registracija')
+def dodaj_kupca():  #rešiti: podatek uporabnisko_ime se ne shrani v bazo
     uporabnisko_ime = request.forms.uporabnisko_ime
-    geslo = request.forms.geslo
+    geslo = kodiraj(request.forms.geslo)
     email = request.forms.email
     naslov = request.forms.naslov
     telefon = request.forms.telefon
-    modeli.registracija(uporabnisko_ime, geslo, email, naslov, telefon)
-    redirect('/')  #"Registracija uspešna!" dodati?
+    modeli.registracija(uporabnisko_ime, geslo, email,
+                        naslov, telefon)
+    return "<p>Registracija je bila uspesna.</p>"
+
+##--> KOŠARICA <--##
+@route('/kosarica')
+def kosarica():
+    return template(
+        'kosarica',
+        knjige = modeli.kosarica()
+        )
+
+#==========================KODIRANJE GESEL====================================
+import hashlib, binascii
+
+def kodiraj(geslo):
+    return hashlib.md5((geslo).encode()).hexdigest()
+#=============================================================================
 
 run(debug=True)
