@@ -49,3 +49,31 @@ def kosarica():  #WHERE kupec.ID = ?
         FROM kosarica JOIN knjiga ON (kosarica.id_knjige = knjiga.ID)
     '''
     return list(con.execute(sql))
+
+def dodaj_v_kosarico(knjiga, kupec):
+    sql = '''
+        INSERT INTO kosarica (id_kupca, id_knjige, stevilo_izvodov)
+        VALUES (?, ?, 1)'''
+    con.execute(sql, [kupec, knjiga])
+    con.commit()
+
+def o_knjigi(knjiga):
+    sql = '''
+        SELECT *
+        FROM knjiga JOIN zanr ON (knjiga.zanr = zanr.ID)
+        WHERE knjiga.ID = ?
+    '''
+    return con.execute(sql, [knjiga]).fetchone()
+
+def check_login(uporabnik, geslo):
+    sql = '''
+        SELECT geslo
+        FROM kupec
+        WHERE uporabnisko_ime LIKE ?
+    '''
+    pricakovano_geslo = con.execute(sql, [uporabnik])
+    print("Vnešeno geslo je " + geslo)
+    print("Pričakovano geslo je " + str(pricakovano_geslo))
+    if pricakovano_geslo == geslo:
+        return True
+    else: return False

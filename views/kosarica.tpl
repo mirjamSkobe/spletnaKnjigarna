@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
 	table {
 		font-family: arial, sans-serif;
@@ -18,19 +19,20 @@
 </style>
 
 <body>
-
 <nav>
-  <ul>
-	<li><a href="/"><div class="bar1"></div>
-					<div class="bar2"></div>
-					<div class="bar3"></div></a></li>
-    <li><a href="/">Domača stran</a></li>
-    <li><a href="javascript:void(0)">Kontakt</a></li>
-  </ul>
-</nav>
-
+    <div class="nav-wrapper">      
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	    <li><a href="/"><i class="material-icons">navigation</i></a></li><!--Vhodna stan-->
+		<li><a href="/stran_za_kupca">Knjigarna</a></li>
+        <li><a href="/stran_za_kupca/vpis?">Vpis</a></li>
+        <li><a href="/stran_za_kupca/registracija?">Registracija</a></li>
+        <li><a href="/stran_za_kupca/moja_kosarica"><i class="material-icons">shopping_cart</i></a></li>
+      </ul>
+    </div>
+  </nav>
+    
 <section>
-  <img src="http://marthaslibrary.com/wp-content/uploads/2015/06/book.png" width=screen.availWidth height="500">
+  <!--<img src="http://marthaslibrary.com/wp-content/uploads/2015/06/book.png" width=screen.availWidth height="500">-->
 </section>
 
 <section class="container">
@@ -65,14 +67,12 @@
   </table>
  </form>
  </section>
- 
- <footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
+ <!--<footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>
   <a href="#"><i class="fa fa-twitter"></i></a>
   <a href="#"><i class="fa fa-flickr"></i></a>
   <a href="#"><i class="fa fa-linkedin"></i></a>
-</footer>
- 
+</footer>-->
 </body>
 </html>

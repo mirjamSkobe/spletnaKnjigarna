@@ -77,6 +77,12 @@ def stran_za_kupca():
         knjige1 = modeli.seznam_knjig_kupec(),
     )
 
+@post('/stran_za_kupca')  #dodajanje knjige v košarico
+def dodaj_v_kosarico():
+    knjiga = request.forms.get('knjiga')
+    kupec = request.forms.get('kupec')
+    modeli.dodaj_v_kosarico(knjiga, kupec)
+
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
 def registracija():
@@ -95,15 +101,56 @@ def dodaj_kupca():
                         naslov, telefon)
     return "<p>Registracija je bila uspesna.</p>"
 
+##--> VPIS KUPCA <--##
+"""source https://bottlepy.org/docs/dev/tutorial.html"""
+
+@route('/login')
+def login():
+    return '''
+        <form action="/login" method="post">
+            Username: <input name="username" type="text" />
+            Password: <input name="password" type="password" />
+            <input value="Login" type="submit" />
+        </form>
+    '''
+
+@route('/login', method='POST')
+def do_login():
+    username = request.forms.get('username')
+    password = kodiraj(request.forms.get('password'))
+    if modeli.check_login(username, password):
+        return "<p>Your login information was correct.</p>"
+    else:
+        return "<p>Login failed.</p>"
+    
+##@route('/login')
+##def do_login():
+##    username = request.forms.get('username')
+##    password = request.forms.get('password')
+##    if check_login(username, password):
+##        response.set_cookie("account", username, secret='some-secret-key')
+##        return template("<p>Welcome {{name}}! You are now logged in.</p>",
+##                        name=username)
+##    else:
+##        return "<p>Login failed.</p>"
+
+@route('/restricted')
+def restricted_area():
+    username = request.get_cookie("account", secret='some-secret-key')
+    if username:
+        return template("Hello {{name}}. Welcome back.", name=username)
+    else:
+        return "You are not logged in. Access denied."
+
 ##--> KOŠARICA <--##
-@route('/kosarica')
+@route('/stran_za_kupca/moja_kosarica')
 def kosarica():
     return template(
         'kosarica',
         knjige = modeli.kosarica()
         )
 
-@post('/kosarica')
+@post('/stran_za_kupca/moja_kosarica')
 def posodobi_kosarico():
     izvodov = request.forms.izvodov
     modeli.posodobi_kosarico(izvodov)
@@ -112,6 +159,14 @@ def posodobi_kosarico():
         knjige = modeli.kosarica()
         )
 
+##-->PREDSTAVITEV KNJIGE<--##
+@get('/stran_za_kupca/o_knjigi/<knjiga>')
+def o_knjigi(knjiga):
+    return template(
+        'o_knjigi',
+        knjiga=modeli.o_knjigi(knjiga)
+    )
+ 
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii
 
