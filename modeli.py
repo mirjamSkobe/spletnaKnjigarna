@@ -44,8 +44,12 @@ def seznam_dobavitelji():
     return list(con.execute(sql))
 
 def kosarica():  #WHERE kupec.ID = ?
+                 #popravi kodo za cena_kosarica
     sql = '''
-        SELECT *
+        SELECT id_knjige, id_kupca, stevilo_izvodov,
+               ID, naslov, avtor, cena,
+               (stevilo_izvodov * cena) AS cena_vseh_izvodov,
+               4.44 AS cena_kosarica
         FROM kosarica JOIN knjiga ON (kosarica.id_knjige = knjiga.ID)
     '''
     return list(con.execute(sql))
@@ -55,6 +59,15 @@ def dodaj_v_kosarico(knjiga, kupec):
         INSERT INTO kosarica (id_kupca, id_knjige, stevilo_izvodov)
         VALUES (?, ?, 1)'''
     con.execute(sql, [kupec, knjiga])
+    con.commit()
+
+def odstrani_iz_kosarice(knjiga, kupec, izvodov):
+    print(knjiga)
+    sql = '''
+        DELETE FROM kosarica
+        WHERE (id_knjige = ?)
+        '''
+    con.execute(sql, [knjiga])
     con.commit()
 
 def o_knjigi(knjiga):
@@ -71,9 +84,7 @@ def check_login(uporabnik, geslo):
         FROM kupec
         WHERE uporabnisko_ime LIKE ?
     '''
-    pricakovano_geslo = con.execute(sql, [uporabnik])
-    print("Vnešeno geslo je " + geslo)
-    print("Pričakovano geslo je " + str(pricakovano_geslo))
-    if pricakovano_geslo == geslo:
+    pricakovano_geslo = con.execute(sql, [uporabnik]).fetchone()
+    if pricakovano_geslo["geslo"] == geslo:
         return True
     else: return False

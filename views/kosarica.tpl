@@ -6,14 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
 	table {
 		font-family: arial, sans-serif;
 		border-collapse: collapse;
 		margin: 100px 150px;
-		overflow-y:scroll;
-		height:300px;
+		
 		display:block;
 	}
 </style>
@@ -36,37 +37,41 @@
 </section>
 
 <section class="container">
-<form method="post">
-  <button type="submit">Posodobi košarico</button>
-  <button type="submit">Opravi nakup</button>
   <table class="striped bordered">
   <thead>
-	 <tr><th>Knjiga</th><th>Avtor</th><th>Število izvodov</th><th>Cena (cena za 1 izvod)</th><th>Odstrani iz košarice</th></tr>
+	 <tr><th>Knjiga</th><th>Avtor</th><th>Število izvodov</th><th>Cena</th><th>Odstrani iz košarice</th></tr>
   </thead>
   <tbody>
 	 % for knjiga in knjige:
 	 <tr>
+	 
 	 <td>
 	 {{knjiga['naslov']}}
 	 </td>
 	 <td>
 	 {{knjiga['avtor']}}
 	 </td>
-	 <td>
-	 <input type="number" name="izvodov" value={{knjiga['stevilo_izvodov']}}>
+	 <td style="text-align: center;">
+	 {{knjiga['stevilo_izvodov']}}
 	 </td>
-	 <td>
-	 {{knjiga['stevilo_izvodov']}} * ({{knjiga['cena']}} €)
+	 <td nowrap>
+	 {{knjiga['cena']}} €
 	 </td>
 	 <td style="text-align: center; vertical-align: middle;">
-	 <input type="checkbox" name="odstrani" value="{{knjiga['ID']}}">
+	 <form method="post">
+			 <input type="hidden" name="knjiga" value="{{knjiga['ID']}}" />
+			 <input type="hidden" name="kupec" value="1" /><!--kupec['ID']-->
+			 <input type="hidden" name="izvodov" value="{{knjiga['stevilo_izvodov']}}" />
+			 <button class="waves-effect waves-teal btn-flat type="submit">Odstrani</button>
+	 </form>
 	 </td>
+	 
 	 </tr>
 	 % end
   </tbody>
   </table>
- </form>
- </section>
+  <center><a href="/stran_za_kupca/nakup"><button type="submit">Opravi nakup</button></a></center>
+  </section>
  <!--<footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
   <a href="#"><i class="fa fa-facebook-official"></i></a>
   <a href="#"><i class="fa fa-pinterest-p"></i></a>

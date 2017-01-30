@@ -74,7 +74,7 @@ def dodaj_knjigo_post():
 def stran_za_kupca():
     return template(
         'seznam_knjig_kupec',
-        knjige1 = modeli.seznam_knjig_kupec(),
+        knjige1 = modeli.seznam_knjig_kupec()
     )
 
 @post('/stran_za_kupca')  #dodajanje knjige v košarico
@@ -82,6 +82,7 @@ def dodaj_v_kosarico():
     knjiga = request.forms.get('knjiga')
     kupec = request.forms.get('kupec')
     modeli.dodaj_v_kosarico(knjiga, kupec)
+    redirect('/stran_za_kupca/moja_kosarica')
 
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
@@ -104,24 +105,33 @@ def dodaj_kupca():
 ##--> VPIS KUPCA <--##
 """source https://bottlepy.org/docs/dev/tutorial.html"""
 
-@route('/login')
+@route('/vpis')
 def login():
     return '''
-        <form action="/login" method="post">
+        <form action="/vpis" method="post">
             Username: <input name="username" type="text" />
             Password: <input name="password" type="password" />
             <input value="Login" type="submit" />
         </form>
     '''
 
-@route('/login', method='POST')
+@post('/vpis')
 def do_login():
     username = request.forms.get('username')
     password = kodiraj(request.forms.get('password'))
     if modeli.check_login(username, password):
-        return "<p>Your login information was correct.</p>"
+        response.set_cookie("account", username, secret='skrivni_klju')
+        return  template("<p>Dobrodošli: {{name}}</p>", name=username)
     else:
-        return "<p>Login failed.</p>"
+        return "<p>Neuspešna prijava</p>"
+
+@route('/restricted')
+def restricted_area():
+    username = request.get_cookie("account", secret='skrivni_ključ')
+    if username:
+        return template("Hello {{name}}. Welcome back.", name=username)
+    else:
+        return "You are not logged in. Access denied."
     
 ##@route('/login')
 ##def do_login():
@@ -134,14 +144,6 @@ def do_login():
 ##    else:
 ##        return "<p>Login failed.</p>"
 
-@route('/restricted')
-def restricted_area():
-    username = request.get_cookie("account", secret='some-secret-key')
-    if username:
-        return template("Hello {{name}}. Welcome back.", name=username)
-    else:
-        return "You are not logged in. Access denied."
-
 ##--> KOŠARICA <--##
 @route('/stran_za_kupca/moja_kosarica')
 def kosarica():
@@ -151,13 +153,31 @@ def kosarica():
         )
 
 @post('/stran_za_kupca/moja_kosarica')
-def posodobi_kosarico():
+def odstrani_iz_kosarice():
+    knjiga = request.forms.knjiga
+    kupec = request.forms.kupec
     izvodov = request.forms.izvodov
-    modeli.posodobi_kosarico(izvodov)
+    modeli.odstrani_iz_kosarice(knjiga, kupec, izvodov)
     return template(
         'kosarica',
         knjige = modeli.kosarica()
         )
+
+##--> RAČUN <--##
+@route('/stran_za_kupca/nakup')
+def nakup():
+    return template(
+        'nakup',
+        knjige = modeli.kosarica()
+    )
+
+@post('/stran_za_kupca/nakup')
+def poslji_racun():
+    kupec = request.forms.kupec
+    #modeli.poslji_racun(kupec)
+    return "Račun je bil poslan na vaš elektronski naslov. \
+Po plačilu računa bomo knjige poslali na vaš naslov. Zahvaljujemo se vam \
+za nakup."
 
 ##-->PREDSTAVITEV KNJIGE<--##
 @get('/stran_za_kupca/o_knjigi/<knjiga>')
