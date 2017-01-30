@@ -105,7 +105,7 @@ def dodaj_kupca():
 ##--> VPIS KUPCA <--##
 """source https://bottlepy.org/docs/dev/tutorial.html"""
 
-@route('/vpis')
+@route('/stran_za_kupca/vpis')
 def login():
     return '''
         <form action="/vpis" method="post">
