@@ -42,7 +42,7 @@
 {{knjiga['cena']}} €
 			 <form method="post">
 			 <input type="hidden" name="knjiga" value="{{knjiga['ID']}}" />
-			 <input type="hidden" name="kupec" value="1" /><!--kupec['ID']-->
+			 <input type="hidden" name="kupec" value="{{ID_upor}}" />
 			 <a href="/kosarica"><button class="waves-effect waves-teal btn-flat" type="submit"><i class="material-icons">shopping_cart</i></button></a>
 			 </form>
 </div>

@@ -141,8 +141,16 @@ def o_knjigi(knjiga):
     return template(
         'o_knjigi',
         knjiga=modeli.o_knjigi(knjiga),
-        ime_uporabnika = seja.read('vpisani_ime')
+        ime_uporabnika = seja.read('vpisani_ime'),
+        ID_upor = seja.read('vpisani_ID')
     )
+
+@post('/stran_za_kupca/o_knjigi/<knjiga>')  #dodajanje knjige v košarico
+def dodaj_v_kosarico(knjiga):
+    #knjiga = int(knjiga)
+    kupec = request.forms.get('kupec')
+    modeli.dodaj_v_kosarico(knjiga, kupec)
+    redirect('/stran_za_kupca/moja_kosarica')
 
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
