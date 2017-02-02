@@ -1,10 +1,6 @@
-% rebase('osnova.tpl')
-
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -19,13 +15,15 @@
 
 <body>
 <nav>
-    <div class="nav-wrapper">      
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <div class="nav-wrapper">
+	<a href="#" class="brand-logo center">Pozdravljeni, {{ime_uporabnika}}!</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
 	    <li><a href="/"><i class="material-icons">navigation</i></a></li><!--Vhodna stan-->
 		<li><a href="/stran_za_kupca">Knjigarna</a></li>
         <li><a href="/stran_za_kupca/vpis?">Vpis</a></li>
         <li><a href="/stran_za_kupca/registracija?">Registracija</a></li>
         <li><a href="/stran_za_kupca/moja_kosarica"><i class="material-icons">shopping_cart</i></a></li>
+		<li><a href="/stran_za_kupca/izpis">Izpis</a></li>
       </ul>
     </div>
   </nav>
@@ -64,9 +62,9 @@
 			  
             </div>
             <div class="card-action">
-			<center>Skupaj za plačilo: {{knjiga['cena_vseh_izvodov']}} €<br>
+			<center>Skupaj za plačilo: {{cena}} €<br>
 			<form method="post">
-			<input type="hidden" name="kupec" value="{{knjiga['id_kupca']}}" />
+			<input type="hidden" name="kupec" value="{{kupec}}" />
 			<button type="submit">Pošlji račun</button>
 			</form>
 			</center>

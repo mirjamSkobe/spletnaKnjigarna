@@ -1,11 +1,8 @@
-% rebase('osnova.tpl')
-
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
 	table{
@@ -20,31 +17,19 @@
 
 <body>
 
-<nav><!--http://stackoverflow.com/questions/30689541/simple-nav-left-and-right-alignment-->
-    <div class="nav-wrapper">      
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+<nav>
+    <div class="nav-wrapper">
+	<a href="#" class="brand-logo center">Pozdravljeni, {{ime_uporabnika}}!</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
 	    <li><a href="/"><i class="material-icons">navigation</i></a></li><!--Vhodna stan-->
 		<li><a href="/stran_za_kupca">Knjigarna</a></li>
         <li><a href="/stran_za_kupca/vpis?">Vpis</a></li>
         <li><a href="/stran_za_kupca/registracija?">Registracija</a></li>
         <li><a href="/stran_za_kupca/moja_kosarica"><i class="material-icons">shopping_cart</i></a></li>
+		<li><a href="/stran_za_kupca/izpis">Izpis</a></li>
       </ul>
     </div>
   </nav>
-
-<!--slika & 2 gumba, ki sta zdaj v navbar
-<section>
-	<img src="http://scholarschoice.com/Portals/35/Images/The-Scholars-Choice-Books.jpg" width=screen.availWidth height="350">
-	<a href="/stran_za_kupca/registracija?"><button class="button">
-	<span>
-		<div align = center class="card-panel black"><h3>REGISTRIRAJ SE</h3></div>
-		</span></button></a>
-	<a href="/stran_za_kupca/vpis?"><button class="button">
-	<span>
-		<div align = center class="card-panel black"><h3>VPIŠI SE</h3></div>
-		</span></button></a>
-</section>
--->
 
 <section class="container">
 	<table>
@@ -55,24 +40,24 @@
 			<th>Dodaj v košarico</th>
 		</tr>
 		<tbody>
-			% for knjiga1 in knjige1:
+			% for knjiga in knjige:
 			 <tr>
 			 <td>
-			 {{knjiga1['avtor']}}
+			 {{knjiga['avtor']}}
 			 </td>
 			 <td>
-				<a href="/stran_za_kupca/o_knjigi/{{knjiga1['ID']}}">
-				{{knjiga1['naslov']}}
+				<a href="/stran_za_kupca/o_knjigi/{{knjiga['ID']}}">
+				{{knjiga['naslov']}}
 				</a>
 			 </td>
 			 <td>
-			 {{knjiga1['zanr']}}
+			 {{knjiga['zanr']}}
 			 </td>
 			 <td style="text-align: center; vertical-align: middle;">
-			 {{knjiga1['cena']}} €
+			 {{knjiga['cena']}} €
 			 <form method="post">
-			 <input type="hidden" name="knjiga" value="{{knjiga1['ID']}}" />
-			 <input type="hidden" name="kupec" value="1" /><!--kupec['ID']-->
+			 <input type="hidden" name="knjiga" value="{{knjiga['ID']}}" />
+			 <input type="hidden" name="kupec" value="{{ID_upor}}" />
 			 <a href="/kosarica"><button class="waves-effect waves-teal btn-flat type="submit"><i class="material-icons">shopping_cart</i></button></a>
 			 </form>
 			 </td>

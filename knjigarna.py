@@ -1,5 +1,10 @@
 from bottle import *
+from bottlesession import session
 import modeli
+
+seja = session()
+seja.set('vpisani_ime', '')
+seja.set('vpisani_ID', '')
 
 ##--> DOMAČA STRAN <--##
 @route('/')
@@ -74,7 +79,9 @@ def dodaj_knjigo_post():
 def stran_za_kupca():
     return template(
         'seznam_knjig_kupec',
-        knjige1 = modeli.seznam_knjig_kupec()
+        knjige = modeli.seznam_knjig_kupec(),
+        ID_upor = seja.read('vpisani_ID'),
+        ime_uporabnika = seja.read('vpisani_ime')
     )
 
 @post('/stran_za_kupca')  #dodajanje knjige v košarico
@@ -84,11 +91,65 @@ def dodaj_v_kosarico():
     modeli.dodaj_v_kosarico(knjiga, kupec)
     redirect('/stran_za_kupca/moja_kosarica')
 
+##--> KOŠARICA <--##
+@route('/stran_za_kupca/moja_kosarica')
+def kosarica():
+    ID_upor = seja.read('vpisani_ID')
+    ime_upor = seja.read('vpisani_ime')
+    return template(
+        'kosarica',
+        ime_uporabnika = ime_upor,
+        ID_uporabnika = ID_upor,
+        knjige = modeli.kosarica(ID_upor)
+        )
+
+@post('/stran_za_kupca/moja_kosarica')
+def odstrani_iz_kosarice():
+    knjiga = request.forms.knjiga
+    kupec = request.forms.kupec
+    modeli.odstrani_iz_kosarice(knjiga, kupec)
+    return template(
+        'kosarica',
+        ime_uporabnika = 'Jure',#popravi ime in ID (ko bo seja delovala)
+        ID_uporabnika = 1,
+        knjige = modeli.kosarica(kupec)
+        )
+
+##--> NAKUP <--##
+@route('/stran_za_kupca/nakup')
+def racun():
+    kupec = seja.read('vpisani_ID')
+    return template(
+        'nakup',
+        kupec = kupec,
+        knjige = modeli.kosarica(kupec),
+        cena = modeli.cena_kosarice(kupec),
+        ime_uporabnika = seja.read('vpisani_ime')
+    )
+
+@post('/stran_za_kupca/nakup')
+def nakup_v_teku():
+    kupec = request.forms.kupec
+    modeli.nakup_v_teku(kupec)
+    return "Račun je bil poslan na vaš elektronski naslov.<br>\
+Po plačilu računa bomo knjige poslali na vaš naslov.<br>Zahvaljujemo se vam \
+za nakup."
+
+##--> PREDSTAVITEV KNJIGE <--##
+@get('/stran_za_kupca/o_knjigi/<knjiga>')
+def o_knjigi(knjiga):
+    return template(
+        'o_knjigi',
+        knjiga=modeli.o_knjigi(knjiga),
+        ime_uporabnika = seja.read('vpisani_ime')
+    )
+
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
 def registracija():
     return template(
-        'registracija.tpl'
+        'registracija.tpl',
+        ime_uporabnika = seja.read('vpisani_ime')
     )
 
 @post('/stran_za_kupca/registracija')
@@ -103,90 +164,35 @@ def dodaj_kupca():
     return "<p>Registracija je bila uspesna.</p>"
 
 ##--> VPIS KUPCA <--##
-"""source https://bottlepy.org/docs/dev/tutorial.html"""
-
 @route('/stran_za_kupca/vpis')
-def login():
+def vpis():
     return '''
-        <form action="/vpis" method="post">
-            Username: <input name="username" type="text" />
-            Password: <input name="password" type="password" />
-            <input value="Login" type="submit" />
+        <form action="/stran_za_kupca/vpis" method="post">
+            Uporabniško ime: <input name="uporabnisko_ime" type="text" />
+            Geslo: <input name="geslo" type="password" />
+            <input value="OK" type="submit" />
         </form>
     '''
 
-@post('/vpis')
-def do_login():
-    username = request.forms.get('username')
-    password = kodiraj(request.forms.get('password'))
-    if modeli.check_login(username, password):
-        response.set_cookie("account", username, secret='skrivni_klju')
-        return  template("<p>Dobrodošli: {{name}}</p>", name=username)
-    else:
+@post('/stran_za_kupca/vpis')
+def potrdi_vpis():
+    uporabnisko_ime = request.forms.get('uporabnisko_ime')
+    geslo = kodiraj(request.forms.get('geslo'))
+    vpis = modeli.preveri_vpis(uporabnisko_ime, geslo)  #modeli.vpis vrne ID kupca
+    if vpis == False:
         return "<p>Neuspešna prijava</p>"
-
-@route('/restricted')
-def restricted_area():
-    username = request.get_cookie("account", secret='skrivni_ključ')
-    if username:
-        return template("Hello {{name}}. Welcome back.", name=username)
     else:
-        return "You are not logged in. Access denied."
-    
-##@route('/login')
-##def do_login():
-##    username = request.forms.get('username')
-##    password = request.forms.get('password')
-##    if check_login(username, password):
-##        response.set_cookie("account", username, secret='some-secret-key')
-##        return template("<p>Welcome {{name}}! You are now logged in.</p>",
-##                        name=username)
-##    else:
-##        return "<p>Login failed.</p>"
+        seja.set('vpisani_ime', uporabnisko_ime)
+        seja.set('vpisani_ID', vpis)
+        redirect('/stran_za_kupca/moja_kosarica')
 
-##--> KOŠARICA <--##
-@route('/stran_za_kupca/moja_kosarica')
-def kosarica():
-    return template(
-        'kosarica',
-        knjige = modeli.kosarica()
-        )
+##--> IZPIS KUPCA <--##
+@route('/stran_za_kupca/izpis')
+def izpis():
+    seja.set('vpisani_ime', '')
+    seja.set('vpisani_ID', '')
+    return "Uspešno ste se izpisali."
 
-@post('/stran_za_kupca/moja_kosarica')
-def odstrani_iz_kosarice():
-    knjiga = request.forms.knjiga
-    kupec = request.forms.kupec
-    izvodov = request.forms.izvodov
-    modeli.odstrani_iz_kosarice(knjiga, kupec, izvodov)
-    return template(
-        'kosarica',
-        knjige = modeli.kosarica()
-        )
-
-##--> RAČUN <--##
-@route('/stran_za_kupca/nakup')
-def nakup():
-    return template(
-        'nakup',
-        knjige = modeli.kosarica()
-    )
-
-@post('/stran_za_kupca/nakup')
-def poslji_racun():
-    kupec = request.forms.kupec
-    #modeli.poslji_racun(kupec)
-    return "Račun je bil poslan na vaš elektronski naslov. \
-Po plačilu računa bomo knjige poslali na vaš naslov. Zahvaljujemo se vam \
-za nakup."
-
-##-->PREDSTAVITEV KNJIGE<--##
-@get('/stran_za_kupca/o_knjigi/<knjiga>')
-def o_knjigi(knjiga):
-    return template(
-        'o_knjigi',
-        knjiga=modeli.o_knjigi(knjiga)
-    )
- 
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii
 
