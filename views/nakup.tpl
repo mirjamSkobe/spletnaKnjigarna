@@ -38,8 +38,8 @@
         <div class="col s12 m6">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title">Račun</span>
-  <table class="striped bordered">
+              <span class="card-title"><center>Račun</center></span>
+  <table>
     <thead>
 	  <tr><th>Število izvodov</th><th>Knjiga</th><th>Za plačilo</th></tr>
     </thead>

@@ -3,7 +3,7 @@ from bottlesession import session
 import modeli
 
 seja = session()
-seja.set('vpisani_ime', '')
+seja.set('vpisani_ime', 'gost')
 seja.set('vpisani_ID', '')
 
 ##--> DOMAČA STRAN <--##
@@ -90,6 +90,17 @@ def dodaj_v_kosarico():
     kupec = request.forms.get('kupec')
     modeli.dodaj_v_kosarico(knjiga, kupec)
     redirect('/stran_za_kupca/moja_kosarica')
+
+@post('/stran_za_kupca')
+def razvrsti_tabelo():
+    zanri = request.forms.getlist('zanri')
+    prikazi_po = request.forms.get('prikaz')
+    return template(
+        'seznam_knjig_kupec',
+        knjige = modeli.razvrsti_tabelo(zanri, prikazi_po),#prilagojena tabela
+        ID_upor = seja.read('vpisani_ID'),
+        ime_uporabnika = seja.read('vpisani_ime')
+    )
 
 ##--> KOŠARICA <--##
 @route('/stran_za_kupca/moja_kosarica')
@@ -197,7 +208,7 @@ def potrdi_vpis():
 ##--> IZPIS KUPCA <--##
 @route('/stran_za_kupca/izpis')
 def izpis():
-    seja.set('vpisani_ime', '')
+    seja.set('vpisani_ime', 'gost')
     seja.set('vpisani_ID', '')
     return "Uspešno ste se izpisali."
 

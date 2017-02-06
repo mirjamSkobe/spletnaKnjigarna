@@ -33,7 +33,6 @@
 </section>
 
 <section class="container">
-     <center>Dobrodošli, {{ime_uporabnika}}!</center>
      <table class="striped bordered">
          <thead>
 	         <tr><th>Knjiga</th><th>Avtor</th><th>Število izvodov</th><th>Cena na izvod</th><th>Odstrani iz košarice</th></tr>

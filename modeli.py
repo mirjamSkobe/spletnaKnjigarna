@@ -3,14 +3,7 @@ import sqlite3
 con = sqlite3.connect('spletnaKnjigarna.db')
 con.row_factory = sqlite3.Row
 
-def seznam_knjig_kupec():
-    sql = '''
-        SELECT knjiga.ID, naslov, avtor, zanr.zanr, cena, st_naZalogi
-        FROM knjiga JOIN zanr ON (knjiga.zanr = zanr.ID)
-        WHERE st_naZalogi > 0
-        ORDER BY  avtor, naslov
-    '''
-    return list(con.execute(sql))
+##--> KNJIGARNAR <--##
 
 def seznam_knjig_knjigarnar():
     sql = '''
@@ -36,6 +29,37 @@ def seznam_dobavitelji():
         FROM dobavitelj
         ORDER BY  ime_podjetja, naslov
     '''
+    return list(con.execute(sql))
+
+##--> KUPEC <--##
+
+def seznam_knjig_kupec():
+    sql = \
+        '''SELECT knjiga.ID, naslov, avtor, zanr.zanr, cena, st_naZalogi ''' + \
+        '''FROM knjiga JOIN zanr ON (knjiga.zanr = zanr.ID) ''' + \
+        '''WHERE st_naZalogi > 0 ''' + \
+        '''ORDER BY avtor, naslov '''
+    
+    return list(con.execute(sql))
+
+def razvrsti_tabelo(zanri, prikazi_po):
+    #vrstni red
+    if prikazi_po == 'avtor_n': vrstni_red = '''avtor, naslov''' 
+    elif prikazi_po == 'avtor_p': vrstni_red = '''avtor DESC, naslov'''
+    elif prikazi_po == 'naslov_n': vrstni_red = '''naslov, avtor'''
+    elif prikazi_po == 'naslov_p': vrstni_red = '''naslov DESC, avtor'''
+    elif prikazi_po == 'cena_n': vrstni_red = '''cena, avtor, naslov'''
+    elif prikazi_po == 'cena_p': vrstni_red = '''cena DESC, avtor, naslov'''
+    #zanri
+    zeljeni_zanri = '('
+    for zanr in zanri: zeljeni_zanri = zeljeni_zanri + zanr + ', '
+    zeljeni_zanri = zeljeni_zanri[:-2] + ')'
+    #--------
+    sql = '''
+        SELECT knjiga.ID, naslov, avtor, zanr.zanr, cena, st_naZalogi
+        FROM knjiga JOIN zanr ON (knjiga.zanr = zanr.ID)
+        WHERE st_naZalogi > 0
+        AND knjiga.zanr in ''' + zeljeni_zanri + ''' ORDER BY ''' + vrstni_red
     return list(con.execute(sql))
 
 def kosarica(id_kupca):    
@@ -123,7 +147,7 @@ def nakup_v_teku(kupec):
 
 def o_knjigi(knjiga):
     sql = '''
-        SELECT *
+        SELECT knjiga.ID, naslov, avtor, opis, cena, zanr.zanr as zanr
         FROM knjiga JOIN zanr ON (knjiga.zanr = zanr.ID)
         WHERE knjiga.ID = ?
     '''
