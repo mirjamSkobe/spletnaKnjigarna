@@ -88,20 +88,33 @@ def stran_za_kupca():
 def dodaj_v_kosarico():
     knjiga = request.forms.get('knjiga')
     kupec = request.forms.get('kupec')
+    if not kupec:
+        return "Za dodajanje knjig v košarico se morate " +\
+               "<a href=\"/stran_za_kupca/vpis\">vpisati</a> ali " +\
+               "<a href=\"/stran_za_kupca/registracija\">registrirati</a>."
     modeli.dodaj_v_kosarico(knjiga, kupec)
     redirect('/stran_za_kupca/moja_kosarica')
 
-@post('/stran_za_kupca')
-def razvrsti_tabelo():
-    zanri = request.forms.getlist('zanri')
-    prikazi_po = request.forms.get('prikaz')
+##--> OBRAZEC ZA PRIKAZ KNJIG <--##
+@route('/stran_za_kupca/filtriraj_knjige')
+def obrazec_za_prikaz_knjig():
     return template(
-        'seznam_knjig_kupec',
-        knjige = modeli.razvrsti_tabelo(zanri, prikazi_po),#prilagojena tabela
+        'obrazec_za_prikaz_knjig',
         ID_upor = seja.read('vpisani_ID'),
         ime_uporabnika = seja.read('vpisani_ime')
     )
 
+@post('/stran_za_kupca/filtriraj_knjige')
+def razvrsti_tabelo():
+    zanri = request.forms.getlist('zanri')
+    prikazi_po = request.forms.get('prikaz')
+    return template(
+        'seznam_knjig_kupec_prilagojen',
+        knjige = modeli.razvrsti_tabelo(zanri, prikazi_po),#prilagojena tabela
+        ID_upor = seja.read('vpisani_ID'),
+        ime_uporabnika = seja.read('vpisani_ime')
+    )
+    
 ##--> KOŠARICA <--##
 @route('/stran_za_kupca/moja_kosarica')
 def kosarica():
@@ -144,7 +157,8 @@ def nakup_v_teku():
     modeli.nakup_v_teku(kupec)
     return "Račun je bil poslan na vaš elektronski naslov.<br>\
 Po plačilu računa bomo knjige poslali na vaš naslov.<br>Zahvaljujemo se vam \
-za nakup."
+za nakup.<br><br>" +\
+           "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
 
 ##--> PREDSTAVITEV KNJIGE <--##
 @get('/stran_za_kupca/o_knjigi/<knjiga>')
@@ -158,8 +172,11 @@ def o_knjigi(knjiga):
 
 @post('/stran_za_kupca/o_knjigi/<knjiga>')  #dodajanje knjige v košarico
 def dodaj_v_kosarico(knjiga):
-    #knjiga = int(knjiga)
     kupec = request.forms.get('kupec')
+    if not kupec:
+        return "Za dodajanje knjig v košarico se morate " +\
+               "<a href=\"/stran_za_kupca/vpis\">vpisati</a> ali " +\
+               "<a href=\"/stran_za_kupca/registracija\">registrirati</a>."
     modeli.dodaj_v_kosarico(knjiga, kupec)
     redirect('/stran_za_kupca/moja_kosarica')
 
@@ -180,7 +197,8 @@ def dodaj_kupca():
     telefon = request.forms.telefon
     modeli.registracija(uporabnisko_ime, geslo, email,
                         naslov, telefon)
-    return "<p>Registracija je bila uspesna.</p>"
+    return "Registracija je bila uspesna.<br><br>" +\
+           "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
 
 ##--> VPIS KUPCA <--##
 @route('/stran_za_kupca/vpis')
@@ -210,7 +228,8 @@ def potrdi_vpis():
 def izpis():
     seja.set('vpisani_ime', 'gost')
     seja.set('vpisani_ID', '')
-    return "Uspešno ste se izpisali."
+    return "Uspešno ste se izpisali.<br><br>" +\
+           "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
 
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii

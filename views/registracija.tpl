@@ -9,13 +9,14 @@
 
 <nav>
     <div class="nav-wrapper">
-	<a href="#" class="brand-logo center">Pozdravljeni, {{ime_uporabnika}}!</a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-	    <li><a href="/"><i class="material-icons">navigation</i></a></li><!--Vhodna stan-->
+	<a href="#" class="brand-logo left">Pozdravljeni, {{ime_uporabnika}}!</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	    <li><a href="/">Vhodna stran</a></li>
 		<li><a href="/stran_za_kupca">Knjigarna</a></li>
-        <li><a href="/stran_za_kupca/vpis?">Vpis</a></li>
+		<li><a href="/stran_za_kupca/filtriraj_knjige">Filtriraj knjige</a></li>
         <li><a href="/stran_za_kupca/registracija?">Registracija</a></li>
         <li><a href="/stran_za_kupca/moja_kosarica"><i class="material-icons">shopping_cart</i></a></li>
+		<li><a href="/stran_za_kupca/vpis?">Vpis</a></li>
 		<li><a href="/stran_za_kupca/izpis">Izpis</a></li>
       </ul>
     </div>

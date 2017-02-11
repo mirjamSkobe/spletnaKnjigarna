@@ -86,8 +86,8 @@ def cena_kosarice(id_kupca):
 
 def dodaj_v_kosarico(knjiga, kupec):
     sql1 = '''SELECT * FROM kosarica WHERE id_kupca = ? AND id_knjige = ?'''
-    obstaja = list(con.execute(sql1, [kupec, knjiga]))  #ali ima kupec to knjigo ze v kosarici
-    if obstaja:
+    obstaja = list(con.execute(sql1, [kupec, knjiga]))  #ali ima kupec to
+    if obstaja:                                         #knjigo ze v kosarici
         sql = '''
             UPDATE kosarica
             SET stevilo_izvodov = stevilo_izvodov + 1
