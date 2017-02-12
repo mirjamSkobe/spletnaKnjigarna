@@ -231,6 +231,28 @@ def izpis():
     return "Uspešno ste se izpisali.<br><br>" +\
            "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
 
+##--> VPIS LASTNIKA <--##
+@post('/')
+def prijavare():
+    uporabnisko_ime = request.forms.uporabnisko_ime
+    geslo = request.forms.geslo
+    vpis = modeli.preveri_vpisA(uporabnisko_ime, geslo)
+    if geslo != 'admin1234':
+        return "<p>Neuspešna prijava</p>"
+    else:
+        seja.set('vpisani_ime', uporabnisko_ime)
+        seja.set('vpisani_ID', vpis)
+        redirect('/vstopKnjigarnar')
+
+
+##--> IZPIS LASTNIKA <--##
+@route('/stran_za_kupca/izpis')
+def izpis_lastnik():
+    seja.set('vpisani_ime', 'gost')
+    seja.set('vpisani_ID', '')
+    return "Uspešno ste se izpisali.<br><br>" +\
+           "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
+
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii
 
