@@ -31,7 +31,13 @@ def seznam_dobavitelji():
     '''
     return list(con.execute(sql))
 
-##--> KUPEC <--##
+def preveri_vpisA(upIme, geslo):
+    sql = '''
+        SELECT geslo FROM kupec WHERE uporabnisko_ime = ? AND geslo = ?;
+          '''
+    pravo = con.execute(sql, [upIme, geslo]).fetchone()
+    #ce je none ali ne
+    return pravo
 
 def seznam_knjig_kupec():
     sql = \
