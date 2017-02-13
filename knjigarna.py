@@ -215,8 +215,8 @@ def vpis():
 def potrdi_vpis():
     uporabnisko_ime = request.forms.get('uporabnisko_ime')
     geslo = kodiraj(request.forms.get('geslo'))
-    vpis = modeli.preveri_vpis(uporabnisko_ime, geslo)  #modeli.vpis vrne ID kupca
-    if vpis == False:
+    vpis = modeli.preveri_vpis(uporabnisko_ime, geslo)  #modeli.preveri_vpis
+    if vpis == False:                                   #vrne ID kupca/admina
         return "<p>Neuspešna prijava</p>"
     else:
         seja.set('vpisani_ime', uporabnisko_ime)
@@ -232,12 +232,13 @@ def izpis():
            "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
 
 ##--> VPIS LASTNIKA <--##
+#geslo od admina je admin1234 :)
 @post('/')
-def prijavare():
+def vpis_lastnik():
     uporabnisko_ime = request.forms.uporabnisko_ime
-    geslo = request.forms.geslo
-    vpis = modeli.preveri_vpisA(uporabnisko_ime, geslo)
-    if geslo != 'admin1234':
+    geslo = kodiraj(request.forms.geslo)
+    vpis = modeli.preveri_vpis(uporabnisko_ime, geslo)
+    if vpis == False:
         return "<p>Neuspešna prijava</p>"
     else:
         seja.set('vpisani_ime', uporabnisko_ime)
@@ -246,12 +247,12 @@ def prijavare():
 
 
 ##--> IZPIS LASTNIKA <--##
-@route('/stran_za_kupca/izpis')
+@route('/vstopKnjigarnar/izpis')
 def izpis_lastnik():
     seja.set('vpisani_ime', 'gost')
     seja.set('vpisani_ID', '')
-    return "Uspešno ste se izpisali.<br><br>" +\
-           "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
+    return "Admin, uspešno ste se izpisali.<br><br>" +\
+           "<a href=\"/\">Vhodna stran</a>"
 
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii
