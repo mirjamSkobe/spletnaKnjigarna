@@ -74,6 +74,33 @@ def dodaj_knjigo_post():
     modeli.dodaj_dobavitelja(ime_podjetja, naslov, email)
     redirect('/vstopKnjigarnar')
 
+##--> ODPRTA NAROČILA <--##
+@route('/vstopKnjigarnar/odprta_narocila')
+def seznam_odprtih_narocil():
+    return template(
+        'odprta_narocila',
+        narocila = modeli.seznam_odprih_narocil()
+    )
+
+##--> UREDI NAROČILO <--##
+@get('/vstopKnjigarnar/narocilo/<narocilo>')
+def narocilo(narocilo):
+    return template(
+        'urejanje_narocila',
+        narocilo = modeli.narocilo_podatki(narocilo),
+        narocene_knjige = modeli.knjige_enega_racuna(narocilo)
+        )
+
+##--> SPREMENI STATUS NAROČILA <--##
+@post('/stran_za_kupca/o_knjigi/<narocilo>')
+#spremeni status narocila iz odprto v zakljuceno
+#ustrezno zmanjša število knjig na zalogi
+#spremeni boolean posiljka_odposlana v tabeli racun iz 0 v 1
+def zakljuci_narocilo(narocilo):
+    kupec = request.forms.get('stevilka_racuna')
+    modeli.zakljuci_narocilo(narocilo)
+    redirect('/vstopKnjigarnar/odprta_narocila')
+
 ##--> VSTOP ZA KUPCA <--##
 @route('/stran_za_kupca')
 def stran_za_kupca():

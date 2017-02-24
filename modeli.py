@@ -31,6 +31,31 @@ def seznam_dobavitelji():
     '''
     return list(con.execute(sql))
 
+def seznam_odprih_narocil():
+    sql = '''
+        SELECT id
+        FROM racun
+        WHERE placan AND NOT posiljka_odposlana
+    '''
+    return list(con.execute(sql))
+
+def narocilo_podatki(narocilo):
+    sql = '''
+        SELECT *
+        FROM racun JOIN kupec
+        ON (racun.id_kupca = kupec.ID)
+        WHERE racun.id = ?
+    '''
+    return con.execute(sql, [narocilo]).fetchone()
+
+def knjige_enega_racuna(narocilo):
+    sql = '''
+        SELECT *
+        FROM racun_vsebuje_knjiga
+        WHERE id_racuna = ?
+    '''
+    return list(con.execute(sql, [narocilo]))
+
 def seznam_knjig_kupec():
     sql = \
         '''SELECT knjiga.ID, naslov, avtor, zanr.zanr, cena, st_naZalogi ''' + \

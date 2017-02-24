@@ -32,14 +32,20 @@
   <li><a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a></li>
 </ul>
 
+<ul id="dropdown3" class="dropdown-content">
+  <li><a href="/vstopKnjigarnar/odprta_narocila">Odprta naročila</a></li>
+  <li><a href="/vstopKnjigarnar/zakljucena_narocila">Zaključena naročila</a></li>
+</ul>
+
 <nav>
   <div class="nav-wrapper indigo darken-4">
-    <a class="brand-logo" href="/vstopKnjigarnar" style="margin-left: 15px">Stran za lastnika</a>
+    <a class="brand-logo" style="margin-left: 15px">Stran za lastnika</a>
     <ul class="right hide-on-med-and-down">
 		<li><a href="/">Domača stran</a></li>
 		<!-- Dropdown Trigger -->
 		<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Knjige<i class="material-icons right">arrow_drop_down</i></a></li>
 		<li><a class="dropdown-button" href="#!" data-activates="dropdown2">Dobavitelji<i class="material-icons right">arrow_drop_down</i></a></li>
+		<li><a class="dropdown-button" href="#!" data-activates="dropdown3">Naročila<i class="material-icons right">arrow_drop_down</i></a></li>
 		<li><a href="/vstopKnjigarnar/izpis" style="margin-right: 15px">Izpis</a></li>
 	</ul>
   </div>
