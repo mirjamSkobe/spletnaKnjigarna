@@ -56,6 +56,33 @@ def knjige_enega_racuna(narocilo):
     '''
     return list(con.execute(sql, [narocilo]))
 
+def zakljuci_narocilo(narocilo):
+    # v tabeli racun v stolpcu posiljka_odposlana nastavimo 1 (TRUE)
+    sql = '''
+        UPDATE racun
+        SET posiljka_odposlana = 1
+        WHERE id = ?
+    '''
+    con.execute(sql, [narocilo])
+
+    # spreminjanje st_naZalogi v tabeli knjiga
+    # za vsako knjigo iz naročila št.=narocilo v tabeli knjiga spremenimo
+    #   njeno vrednost st_naZalogi ustrezno glede na stevilo placanih izvodov
+
+    # podatke o knjigah na racunu dobimo kar s funkcijo knjige_enega_racuna
+    snk = knjige_enega_racuna(narocilo)  #snk...seznam narocenih knjig
+    
+    for id_racuna, id_knjige, stevilo_izvodov in snk:
+        # vsaki knjigi iz naročila spremenimo st_naZalogi
+        sql2 = '''
+            UPDATE knjiga
+            SET st_naZalogi = st_naZalogi - ?
+            WHERE id = ?
+        '''
+        con.execute(sql2, [stevilo_izvodov, id_knjige])
+    
+    con.commit()
+
 def seznam_knjig_kupec():
     sql = \
         '''SELECT knjiga.ID, naslov, avtor, zanr.zanr, cena, st_naZalogi ''' + \

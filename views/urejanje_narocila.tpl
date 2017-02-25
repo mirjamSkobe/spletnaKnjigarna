@@ -9,6 +9,44 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 	</head>
 <style>
+/* Full-width input fields */
+	input[type=text], input[type=password] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+	}
+
+	/* Set a style for all buttons */
+	button {
+		border: none;
+		cursor: pointer;
+		width: auto;
+	}
+
+	/* Center the image and position the close button */
+	.imgcontainer {
+		text-align: center;
+		margin: 24px 0 12px 0;
+		position: relative;
+	}
+
+	img.avatar {
+		width: 20%;
+		border-radius: 30%;
+	}
+
+	.container {
+		padding: 16px;
+	}
+
+	span.psw {
+		float: right;
+		padding-top: 16px;
+	}
+
 	/* The Modal (background) */
 	.modal {
 		display: none; /* Hidden by default */
@@ -30,6 +68,44 @@
 		margin: auto;
 		border: 1px solid #888;
 		width: 50%;
+	}
+
+	.close:hover,
+	.close:focus {
+		color: red;
+		cursor: pointer;
+	}
+
+	/* Add Zoom Animation */
+	.animate {
+		-webkit-animation: animatezoom 0.6s;
+		animation: animatezoom 0.6s
+	}
+
+	@-webkit-keyframes animatezoom {
+		from {-webkit-transform: scale(0)} 
+		to {-webkit-transform: scale(1)}
+	}
+		
+	@keyframes animatezoom {
+		from {transform: scale(0)} 
+		to {transform: scale(1)}
+	}
+	
+	nav ul li a{
+		color: white;
+	}  
+	
+	IMG.displayed {
+		display: block;
+		margin-top: 5px;
+		margin-bottom: 15px;
+		margin-left: auto;
+		margin-right: auto 
+	}
+	
+	.btn-large {
+		height: 100px;
 	}
 </style>
 
@@ -80,8 +156,8 @@
               <span class="card-title"><center>Naročene knjige</center></span>
 			    <table>
 	        	  <tr>
-			        <th>Knjiga (ID)</th>
-			        <th>Število izvodov</th>
+			        <th>ID knjige</th>
+			        <th>Število<br>izvodov</th>
 		          </tr>
 	       	      <tbody>
 			% for knjiga in narocene_knjige:
@@ -121,15 +197,16 @@
  
 <!-- pop-up okno za gumb Zaključi naročilo -->
 <div id="modal1" class="modal">
-    <form class="modal-content animate" action="/stran_za_kupca/o_knjigi/<narocilo>" method="post">
-	<div class="container"><center>
+    <form class="modal-content animate" method="post">
+	<div class="container">
+	<center>
 	    <i class="material-icons">warning</i><br>
 		Ali ste prepričani, da želite zaključiti naročilo?<br><br>
 		Zaključitev naročila bo spremenila status pošiljke na <i>odposlana</i> in
 		zmanjšala število knjig na zalogi.<br><br>
 		<input type="hidden" name="stevilka_racuna" value="{{narocilo['id']}}" />
 		<button class="waves-effect waves-light btn indigo darken-4" type="submit">Zaključi naročilo</button>
-		</center>
+	</center>
 	</div>
   </form>
 </div>

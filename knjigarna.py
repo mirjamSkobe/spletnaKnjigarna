@@ -66,7 +66,7 @@ def dodaj_dobavitelja():
         'dodaj_dobavitelja',
     )
 
-@post('/vstopKnjigarnar/dodaj_dobavitelja')
+@post('/vstopKnjigarnar/dodaj_dobavitelja')     #ime funkcije = dodaj_knjigo
 def dodaj_knjigo_post():
     ime_podjetja = request.forms.get('ime_podjetja')
     naslov = request.forms.get('naslov')
@@ -82,7 +82,7 @@ def seznam_odprtih_narocil():
         narocila = modeli.seznam_odprih_narocil()
     )
 
-##--> UREDI NAROČILO <--##
+##--> PODATIKI O NAROČILU <--##
 @get('/vstopKnjigarnar/narocilo/<narocilo>')
 def narocilo(narocilo):
     return template(
@@ -92,14 +92,16 @@ def narocilo(narocilo):
         )
 
 ##--> SPREMENI STATUS NAROČILA <--##
-@post('/stran_za_kupca/o_knjigi/<narocilo>')
+@post('/vstopKnjigarnar/narocilo/<narocilo>')
 #spremeni status narocila iz odprto v zakljuceno
 #ustrezno zmanjša število knjig na zalogi
 #spremeni boolean posiljka_odposlana v tabeli racun iz 0 v 1
 def zakljuci_narocilo(narocilo):
-    kupec = request.forms.get('stevilka_racuna')
+    narocilo = narocilo
     modeli.zakljuci_narocilo(narocilo)
-    redirect('/vstopKnjigarnar/odprta_narocila')
+    return "Naročilo je bilo uspešno zaključeno.<br><br>" +\
+           "<a href=\"/vstopKnjigarnar/odprta_narocila\">" +\
+           "Nazaj v odprta naročila</a>"
 
 ##--> VSTOP ZA KUPCA <--##
 @route('/stran_za_kupca')
