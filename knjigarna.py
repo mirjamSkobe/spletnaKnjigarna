@@ -74,6 +74,14 @@ def dodaj_knjigo_post():
     modeli.dodaj_dobavitelja(ime_podjetja, naslov, email)
     redirect('/vstopKnjigarnar')
 
+##--> ZAKLJUČENA NAROČILA <--##
+@route('/vstopKnjigarnar/zakljucena_narocila')
+def seznam_zakljucenih_narocil():
+    return template(
+        'zakljucena_narocila',
+        narocila = modeli.seznam_zakljucenih_narocil()
+    )
+
 ##--> ODPRTA NAROČILA <--##
 @route('/vstopKnjigarnar/odprta_narocila')
 def seznam_odprtih_narocil():
@@ -82,13 +90,14 @@ def seznam_odprtih_narocil():
         narocila = modeli.seznam_odprih_narocil()
     )
 
-##--> PODATIKI O NAROČILU <--##
+##--> PODATKI O NAROČILU <--##
 @get('/vstopKnjigarnar/narocilo/<narocilo>')
 def narocilo(narocilo):
     return template(
         'urejanje_narocila',
         narocilo = modeli.narocilo_podatki(narocilo),
-        narocene_knjige = modeli.knjige_enega_racuna(narocilo)
+        narocene_knjige = modeli.knjige_enega_racuna(narocilo),
+        zakljuceno = modeli.status_narocila(narocilo)
         )
 
 ##--> SPREMENI STATUS NAROČILA <--##

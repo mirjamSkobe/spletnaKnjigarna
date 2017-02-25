@@ -31,6 +31,14 @@ def seznam_dobavitelji():
     '''
     return list(con.execute(sql))
 
+def seznam_zakljucenih_narocil():
+    sql = '''
+        SELECT id
+        FROM racun
+        WHERE placan AND posiljka_odposlana
+    '''
+    return list(con.execute(sql))
+
 def seznam_odprih_narocil():
     sql = '''
         SELECT id
@@ -55,6 +63,15 @@ def knjige_enega_racuna(narocilo):
         WHERE id_racuna = ?
     '''
     return list(con.execute(sql, [narocilo]))
+
+def status_narocila(narocilo):
+    sql = '''
+        SELECT posiljka_odposlana
+        FROM racun
+        WHERE id = ?
+    '''
+    odg = con.execute(sql, [narocilo]).fetchone()
+    return odg[0]
 
 def zakljuci_narocilo(narocilo):
     # v tabeli racun v stolpcu posiljka_odposlana nastavimo 1 (TRUE)

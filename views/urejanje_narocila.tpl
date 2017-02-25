@@ -141,14 +141,16 @@
   </div>
 </nav>
 
-<div><h3 style="font-family:courier; text-align: center;">
-	Urejanje naročila št. {{narocilo['id']}}</h3>
+<!-- Prikaz strani za odprta narocila - ponuja urejanje statusa narocila. -->
+% if not zakljuceno: 
+<div>
+<h3 style="font-family:courier; text-align: center;">
+	Urejanje naročila št. {{narocilo['id']}}
+</h3>
 </div>
 <div class="container">
 	
-	
-<section class="container">
-
+	<section class="container">
       <div class="row">
         <div class="col s12 m6">
           <div class="card blue-grey darken-1">
@@ -210,6 +212,56 @@
 	</div>
   </form>
 </div>
+
+<!-- Prikaz strani za zakljucena narocila. -->
+% else:
+<div>
+<h3 style="font-family:courier; text-align: center;">
+	Zaključeno naročilo št. {{narocilo['id']}}
+</h3>
+</div>
+<div class="container">
+		
+<section class="container">
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><center>Odposlane knjige</center></span>
+			    <table>
+	        	  <tr>
+			        <th>ID knjige</th>
+			        <th>Število<br>izvodov</th>
+		          </tr>
+	       	      <tbody>
+			% for knjiga in narocene_knjige:
+			 <tr>
+			 <td>
+			 {{knjiga['id_knjige']}}
+			 </td>
+			 <td>
+			 {{knjiga['stevilo_izvodov']}}
+			 </td>
+			 </tr>
+			 % end
+	             </tbody>
+	             </table>
+            </div>
+          </div>
+        </div>
+		<div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><center>Podatki o naročniku</center></span>
+			  <b>Naslov:</b><br>{{narocilo['naslov']}}<br><br>
+			  <b>e-pošta:</b><br>{{narocilo['email']}}<br><br>
+			  <b>Telefon:</b><br>{{narocilo['telefon']}}
+            </div>
+          </div>
+        </div>
+      </div>
+ </div>
+% end
 
 <script>
   $(document).ready(function(){
