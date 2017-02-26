@@ -6,15 +6,6 @@ seja = session()
 seja.set('vpisani_ime', 'gost')
 seja.set('vpisani_ID', '')
 
-def dodajanje_v_kosarico(knjiga, kupec):
-    '''Doda knjigo v kosarico, ce je na zalogi.'''
-    if modeli.na_zalogi(knjiga):
-        modeli.dodaj_v_kosarico(knjiga, kupec)
-        redirect('/stran_za_kupca/moja_kosarica')
-    else:
-        return "Knjige trenutno ni na zalogi.<br><br>" +\
-               "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
-
 ##--> DOMAČA STRAN <--##
 @route('/')
 def domaca_stran():
@@ -139,7 +130,8 @@ def dodaj_v_kosarico():
         return "Za dodajanje knjig v košarico se morate " +\
                "<a href=\"/stran_za_kupca/vpis\">vpisati</a> ali " +\
                "<a href=\"/stran_za_kupca/registracija\">registrirati</a>."
-    dodajanje_v_kosarico(knjiga, kupec)
+    modeli.dodaj_v_kosarico(knjiga, kupec)
+    redirect('/stran_za_kupca/moja_kosarica')
 
 ##--> OBRAZEC ZA PRIKAZ KNJIG <--##
 @route('/stran_za_kupca/filtriraj_knjige')
@@ -223,7 +215,8 @@ def dodaj_v_kosarico(knjiga):
         return "Za dodajanje knjig v košarico se morate " +\
                "<a href=\"/stran_za_kupca/vpis\">vpisati</a> ali " +\
                "<a href=\"/stran_za_kupca/registracija\">registrirati</a>."
-    dodajanje_v_kosarico(knjiga, kupec)
+    modeli.dodaj_v_kosarico(knjiga, kupec)
+    redirect('/stran_za_kupca/moja_kosarica')
 
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
@@ -298,6 +291,24 @@ def izpis_lastnik():
     seja.set('vpisani_ID', '')
     return "Admin, uspešno ste se izpisali.<br><br>" +\
            "<a href=\"/\">Vhodna stran</a>"
+
+##--> O KNJIGI LASTNIK <--##
+@get('/vstopKnjigarnar/o_knjigi_lastnik/<knjiga>')
+def o_knjigi(knjiga):
+    return template(
+        'o_knjigi_lastnik',
+        knjiga=modeli.o_knjigi(knjiga),
+        ime_uporabnika = seja.read('vpisani_ime'),
+        ID_upor = seja.read('vpisani_ID')
+    )
+
+##--> SPREMEMBA CENE <--##
+@post('/vstopKnjigarnar/o_knjigi_lastnik/<knjiga>')
+def sprememba_cene(knjiga):
+    ID = int(request.forms.ID)
+    cena = float(request.forms.cena)
+    modeli.spremeni_ceno(ID, cena)
+    redirect('/vstopKnjigarnar/seznam_knjig_knjigarnar')
 
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii
