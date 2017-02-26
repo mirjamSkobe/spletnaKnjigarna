@@ -69,7 +69,7 @@
 	 {{knjiga1['avtor']}}
 	 </td>
 	 <td>
-	 <a href="/o_knjigi/{{knjiga1['ID']}}">
+	 <a href="/vstopKnjigarnar/o_knjigi_lastnik/{{knjiga1['ID']}}">
 	 {{knjiga1['naslov']}}
 	 </td>
 	 <td>
