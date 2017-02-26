@@ -6,6 +6,15 @@ seja = session()
 seja.set('vpisani_ime', 'gost')
 seja.set('vpisani_ID', '')
 
+def dodajanje_v_kosarico(knjiga, kupec):
+    '''Doda knjigo v kosarico, ce je na zalogi.'''
+    if modeli.na_zalogi(knjiga):
+        modeli.dodaj_v_kosarico(knjiga, kupec)
+        redirect('/stran_za_kupca/moja_kosarica')
+    else:
+        return "Knjige trenutno ni na zalogi.<br><br>" +\
+               "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
+
 ##--> DOMAČA STRAN <--##
 @route('/')
 def domaca_stran():
@@ -130,8 +139,7 @@ def dodaj_v_kosarico():
         return "Za dodajanje knjig v košarico se morate " +\
                "<a href=\"/stran_za_kupca/vpis\">vpisati</a> ali " +\
                "<a href=\"/stran_za_kupca/registracija\">registrirati</a>."
-    modeli.dodaj_v_kosarico(knjiga, kupec)
-    redirect('/stran_za_kupca/moja_kosarica')
+    dodajanje_v_kosarico(knjiga, kupec)
 
 ##--> OBRAZEC ZA PRIKAZ KNJIG <--##
 @route('/stran_za_kupca/filtriraj_knjige')
@@ -215,8 +223,7 @@ def dodaj_v_kosarico(knjiga):
         return "Za dodajanje knjig v košarico se morate " +\
                "<a href=\"/stran_za_kupca/vpis\">vpisati</a> ali " +\
                "<a href=\"/stran_za_kupca/registracija\">registrirati</a>."
-    modeli.dodaj_v_kosarico(knjiga, kupec)
-    redirect('/stran_za_kupca/moja_kosarica')
+    dodajanje_v_kosarico(knjiga, kupec)
 
 ##--> REGISTRACIJA KUPCA <--##
 @route('/stran_za_kupca/registracija')
