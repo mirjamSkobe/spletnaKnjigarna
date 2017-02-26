@@ -151,7 +151,7 @@
 	<div class="container">
 		<input type="hidden" name="uporabnisko_ime" value="admin" />
 		<label><b>Password</b></label>
-		<input type="password" placeholder="Vnesi geslo" required name="geslo">
+		<input type="password" placeholder="Enter Password" required name="geslo">
 		<button class="waves-effect waves-light btn indigo darken-4" type="submit">Vpiši me!<i class="material-icons right">send</i></button>     
 	</div>
   </form>

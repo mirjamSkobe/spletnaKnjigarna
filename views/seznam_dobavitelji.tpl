@@ -50,7 +50,7 @@
 </nav>
 
 <div><h3 style="font-family:courier; text-align: center;">
-	Seznam dobaviteljev </h3>
+	Seznam dobavitelji </h3>
 </div>
 
 <div id="main">
