@@ -156,6 +156,15 @@ def cena_kosarice(id_kupca):
     rezultat = con.execute(sql, [id_kupca]).fetchone()
     return rezultat['cena']
 
+def na_zalogi(knjiga):
+    #preveri, ali je na zalogi vsaj ena knjiga (kupec lahko doda v košarico
+    #samo 1 knjigo naenkrat
+    sql = '''SELECT st_naZalogi FROM knjiga WHERE ID = ?'''
+    zaloga = con.execute(sql, [knjiga]).fetchone()
+    if zaloga[0] < 1:
+        return False
+    return True
+
 def dodaj_v_kosarico(knjiga, kupec):
     sql1 = '''SELECT * FROM kosarica WHERE id_kupca = ? AND id_knjige = ?'''
     obstaja = list(con.execute(sql1, [kupec, knjiga]))  #ali ima kupec to
