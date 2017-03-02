@@ -13,9 +13,32 @@ def seznam_knjig_knjigarnar():
     '''
     return list(con.execute(sql))
 
-def dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi):
-    sql = '''INSERT INTO knjiga (naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
-    con.execute(sql,[naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi])
+def dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, format, opis, cena, st_naZalogi):
+    sql = '''INSERT INTO knjiga (naslov, avtor, zanr, leto_izdaje, format, opis, cena, st_naZalogi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
+    con.execute(sql,[naslov, avtor, zanr, leto_izdaje, format, opis, cena, st_naZalogi])
+    con.commit()
+
+def napolni(dobavitelj, naslov):
+    sql = '''INSERT INTO dobavitelj_dobavlja (id_knjige, id_dobavitelja)
+             SELECT knjiga.ID,
+                   (SELECT dobavitelj.ID
+                      FROM dobavitelj
+                     WHERE dobavitelj.ime_podjetja = ?)
+              FROM knjiga
+             WHERE knjiga.naslov = ?'''
+    con.execute(sql,[dobavitelj, naslov])
+    con.commit()
+
+def seznam_knjig_dobavitelja(ime_podjetja):
+    sql = '''SELECT knjiga.ID, knjiga.naslov, avtor, cena, st_naZalogi
+               FROM knjiga
+                    JOIN
+                    dobavitelj_dobavlja ON knjiga.ID = dobavitelj_dobavlja.id_knjige
+                    JOIN
+                    dobavitelj ON dobavitelj_dobavlja.id_dobavitelja = dobavitelj.ID
+              WHERE dobavitelj.ime_podjetja = ?
+              ORDER BY st_naZalogi, avtor'''
+    return list(con.execute(sql,[ime_podjetja]))
     con.commit()
 
 def dodaj_dobavitelja(ime_podjetja, naslov, email):

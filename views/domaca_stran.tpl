@@ -11,6 +11,14 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 	</head>
 <style>
+.centered {
+  position: fixed;
+  top: 108px;
+  left: 30%;
+  margin-top: -50px;
+  margin-left: -100px;
+}
+
 /* Full-width input fields */
 	input[type=text], input[type=password] {
 		width: 100%;
@@ -124,21 +132,26 @@
 
 
 <section>
-  <IMG class="displayed"; src="http://writersrelief.com/wp-content/uploads/2016/02/peabody1.jpg" width=screen.availWidth  height="400">
+	<div class="centered">
+		<IMG class="displayed"; src="http://writersrelief.com/wp-content/uploads/2016/02/peabody1.jpg" width=screen.availWidth  height="400">
+	</div>
 </section>
 
 <section>
 <div class="displayed">
+<div class = "centered">
 	<a href="/stran_za_kupca?">
-		<button class="waves-effect waves-light btn-large indigo darken-4" style="margin-left: 107px;">
+		<button class="waves-effect waves-light btn-large indigo darken-4" style="margin-top: 500px">
 		<h4>VSTOP ZA KUPCE</h4>
 		</button>
 	</a>
 
+
 <!-- Modal Trigger -->
-<button class="waves-effect waves-light btn-large indigo darken-4 modal-trigger" href="#modal1" style="margin-left: 107px;">
+<button class="waves-effect waves-light btn-large indigo darken-4 modal-trigger" href="#modal1" style="margin-left: 125px; margin-top: 500px">
 	<h4>VSTOP ZA LASTNIKA</h4>
 </button>
+</div>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
