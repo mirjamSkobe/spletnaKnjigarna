@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -9,17 +10,17 @@
 	</head>
 
 <style>
-	/* Bordered form */
-	form {
-		margin-left: 40px;
-		margin-right: 100px
-		border: 3px solid #f1f1f1;
-	}
+img {
+    max-width: 100%;
+    height: auto;
+}
 
-	input[type=text], input[type=password], input[type=number] {
+
+/* Full-width input fields */
+	input[type=text], input[type=password] {
 		width: 100%;
 		padding: 12px 20px;
-		margin: 8px 0px;
+		margin: 8px 0;
 		display: inline-block;
 		border: 1px solid #ccc;
 		box-sizing: border-box;
@@ -27,20 +28,90 @@
 
 	/* Set a style for all buttons */
 	button {
-		background-color: #4CAF50;
-		color: white;
-		padding: 14px 20px;
-		margin: 8px 0;
 		border: none;
 		cursor: pointer;
-		width: 100px;
+		width: auto;
 	}
 
-	/* Add padding to containers */
+	/* Center the image and position the close button */
+	.imgcontainer {
+		text-align: center;
+		margin: 24px 0 12px 0;
+		position: relative;
+	}
+
+	img.avatar {
+		width: 20%;
+		border-radius: 30%;
+	}
+
 	.container {
 		padding: 16px;
 	}
+
+	span.psw {
+		float: right;
+		padding-top: 16px;
+	}
+
+	/* The Modal (background) */
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		padding-top: 80px;
+	}
+
+	/* Modal Content/Box */
+	.modal-content {
+		background-color: #fefefe;
+		margin: auto;
+		border: 1px solid #888;
+		width: 50%;
+	}
+
+	.close:hover,
+	.close:focus {
+		color: red;
+		cursor: pointer;
+	}
+
+	/* Add Zoom Animation */
+	.animate {
+		-webkit-animation: animatezoom 0.6s;
+		animation: animatezoom 0.6s
+	}
+
+	@-webkit-keyframes animatezoom {
+		from {-webkit-transform: scale(0)} 
+		to {-webkit-transform: scale(1)}
+	}
+		
+	@keyframes animatezoom {
+		from {transform: scale(0)} 
+		to {transform: scale(1)}
+	}
+	
+	nav ul li a{
+		color: white;
+	}  
+	
+	IMG.displayed {
+		display: block;
+		margin-top: 5px;
+		margin-bottom: 15px;
+		margin-left: auto;
+		margin-right: auto 
+	}
 </style>
+
 
 <body>
 <!-- Dropdown Structure -->
@@ -80,46 +151,35 @@
   </div>
 </nav>
 
-
 <div><h3 style="font-family:courier; text-align: center;">
-	Stran za dodajanje knjig </h3>
+	Dobavitelj:  {{ime}}</h3>
 </div>
 
-<form method="post" action="/vstopKnjigarnar/dodaj_knjigo">
-<div class="container">
-	<label><h6><b>Naslov</b></h6></label>
-	<input type="text" placeholder="Naslov" name="naslov" required>
-	
-	<label><h6><b>Avtor</b></h6></label>
-	<input type="text" placeholder="Ime in priimek avtorja" name="avtor" required>
-	
-	<label><h6><b>Žanr</b></h6></label>
-	<input type="number" placeholder="Žanr" name="zanr" required>
-	
-	<label><h6><b>Leto izdaje</b></h6></label>
-	<input type="number" placeholder="Leto izdaje" name="leto_izdaje" required>
-	
-	<label><h6><b>Format knjige</b></h6></label>
-	<input type="number" placeholder="Format knjige" name="format" required>
-	
-	<label><h6><b>Cena</b></h6></label>
-	<input type="number" placeholder="Cena" name="cena" required>
-	
-	<label><h6><b>Opis</b></h6></label>
-	<input type="text" placeholder="Opis" name="opis" required>
-	<br></br>
+<div id="main">
 
-	<label><h6><b>Dobavitelj</b></h6></label>
-	<input list="text" placeholder="Dodaj dobavitelja" name="dobavitelj" required>
-	<datalist id="text">
-		% for dobavitelj in dobavitelji:
-			<option value="{{dobavitelj['ime_podjetja']}}">
-		% end
-	</datalist>
-	<br></br>
-	<button type="submit">Dodaj</button>
-	
+<section class="container">
+  <table class="bordered">
+  <thead>
+	 <tr><th>Avtor</th><th>Naslov knjige</th><th>Na zalogi</th></tr>
+  </thead>
+  <tbody>
+	 % for knjiga in knjige:
+	 <tr>
+	 <td>
+	 {{knjiga['avtor']}}
+	 </td>
+	 <td>
+	 {{knjiga['naslov']}}
+	 </td>
+	 <td>
+	 {{knjiga['st_naZalogi']}}
+	 </td></tr>
+	 % end
+  </tbody>
+  </table>
+ </section>
+ 
 </div>
-</form>
+
 </body>
 </html>
