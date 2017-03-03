@@ -110,7 +110,6 @@
 </style>
 
 <body>
-
 <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/seznam_knjig_knjigarnar?">Seznam knjig</a></li>
@@ -120,9 +119,16 @@
 <ul id="dropdown2" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a></li>
   <li><a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a></li>
+  <li><a href="/vstopKnjigarnar/dobavnice">Vse dobavnice</a></li>
 </ul>
 
 <ul id="dropdown3" class="dropdown-content">
+	% for dobavitelj in dobavitelji:
+		<li><a href="/vstopKnjigarnar/{{dobavitelj['ime_podjetja']}}">{{dobavitelj['ime_podjetja']}}</a></li>
+	% end
+</ul>
+
+<ul id="dropdown4" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/odprta_narocila">Odprta naročila</a></li>
   <li><a href="/vstopKnjigarnar/zakljucena_narocila">Zaključena naročila</a></li>
 </ul>
@@ -135,7 +141,8 @@
 		<!-- Dropdown Trigger -->
 		<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Knjige<i class="material-icons right">arrow_drop_down</i></a></li>
 		<li><a class="dropdown-button" href="#!" data-activates="dropdown2">Dobavitelji<i class="material-icons right">arrow_drop_down</i></a></li>
-		<li><a class="dropdown-button" href="#!" data-activates="dropdown3">Naročila<i class="material-icons right">arrow_drop_down</i></a></li>
+		<li><a class="dropdown-button" href="#!" data-activates="dropdown3">Naroči pri dobavitelju<i class="material-icons right">arrow_drop_down</i></a></li>
+		<li><a class="dropdown-button" href="#!" data-activates="dropdown4">Naročila<i class="material-icons right">arrow_drop_down</i></a></li>
 		<li><a href="/vstopKnjigarnar/izpis" style="margin-right: 15px">Izpis</a></li>
 	</ul>
   </div>

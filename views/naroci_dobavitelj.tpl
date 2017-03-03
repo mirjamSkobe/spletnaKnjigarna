@@ -8,17 +8,50 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>           
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 	</head>
-	
+
 <style>
-	table {
-		font-family: arial, sans-serif;
-		border-collapse: collapse;
-		overflow-y:scroll;
-		height:700px;
-		width:auto;
-		display:block;
+/* Full-width input fields */
+	input[type=text], input[type=password] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+	}
+
+	/* Set a style for all buttons */
+	button {
+		border: none;
+		cursor: pointer;
+		width: auto;
+	}
+
+	/* Set a style for all buttons */
+	button {
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100px;
+	}
+
+	/* Add padding to containers */
+	.container {
+		padding: 16px;
+	}
+	
+	form {
+	margin-left: 150px;
+	margin-right: 150px;
+	margin-top: 20px;
+	margin-bottom: 70px;
+	border: 3px solid #e7f5fe;
 	}
 </style>
+
 
 <body>
 <!-- Dropdown Structure -->
@@ -59,8 +92,29 @@
   </div>
 </nav>
 
+<form action="/vstopKnjigarnar/{{ime}}" method="post">
+	<label><h6><b>Knjiga</b></h6></label>
+	<input list="text" placeholder="Naslov knjige" name="knjiga" required>
+	<datalist id="text">
+		% for knjiga in knjige:
+			<option value="{{knjiga['naslov']}}"/>
+			<input type="hidden" name="id_knjiga" value="{{knjiga['ID']}}" />
+			<input type="hidden" name="cena" value="{{knjiga['cena']}}" />
+		% end
+	</datalist>
+
+	<br></br>
+	<label><h6><b>Količina</b></h6></label>
+	<input type="number" placeholder="Količina" name="kolicina" min="1" max="50" required>
+
+	<button class="waves-effect waves-light btn indigo darken-4" style="text-align: center; float: right;">Naroči</button>
+
+
+
+</form>
+
 <div><h3 style="font-family:courier; text-align: center;">
-	Seznam knjig </h3>
+	Dobavitelj:  {{ime}}</h3>
 </div>
 
 <div id="main">
@@ -71,24 +125,24 @@
 	 <tr><th>Avtor</th><th>Naslov knjige</th><th>Na zalogi</th></tr>
   </thead>
   <tbody>
-	 % for knjiga1 in knjige2:
-	 <tr>
-	 <td>
-	 {{knjiga1['avtor']}}
-	 </td>
-	 <td>
-	 <a href="/vstopKnjigarnar/o_knjigi_lastnik/{{knjiga1['ID']}}">
-	 {{knjiga1['naslov']}}
-	 </td>
-	 <td>
-	 {{knjiga1['st_naZalogi']}}
-	 </td></tr>
+	% for knjiga in knjige:
+	<tr>
+	<td>
+	{{knjiga['avtor']}}
+	</td>
+	<td>
+	{{knjiga['naslov']}}
+	</td>
+	<td>
+	{{knjiga['st_naZalogi']}}
+	</td>
+	</tr>
 	 % end
   </tbody>
   </table>
- </section>
+  </section>
  
 </div>
- 
+
 </body>
 </html>

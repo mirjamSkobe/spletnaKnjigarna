@@ -52,9 +52,16 @@
 <ul id="dropdown2" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a></li>
   <li><a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a></li>
+  <li><a href="/vstopKnjigarnar/dobavnice">Vse dobavnice</a></li>
 </ul>
 
 <ul id="dropdown3" class="dropdown-content">
+	% for dobavitelj in dobavitelji:
+		<li><a href="/vstopKnjigarnar/{{dobavitelj['ime_podjetja']}}">{{dobavitelj['ime_podjetja']}}</a></li>
+	% end
+</ul>
+
+<ul id="dropdown4" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/odprta_narocila">Odprta naročila</a></li>
   <li><a href="/vstopKnjigarnar/zakljucena_narocila">Zaključena naročila</a></li>
 </ul>
@@ -67,7 +74,8 @@
 		<!-- Dropdown Trigger -->
 		<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Knjige<i class="material-icons right">arrow_drop_down</i></a></li>
 		<li><a class="dropdown-button" href="#!" data-activates="dropdown2">Dobavitelji<i class="material-icons right">arrow_drop_down</i></a></li>
-		<li><a class="dropdown-button" href="#!" data-activates="dropdown3">Naročila<i class="material-icons right">arrow_drop_down</i></a></li>
+		<li><a class="dropdown-button" href="#!" data-activates="dropdown3">Naroči pri dobavitelju<i class="material-icons right">arrow_drop_down</i></a></li>
+		<li><a class="dropdown-button" href="#!" data-activates="dropdown4">Naročila<i class="material-icons right">arrow_drop_down</i></a></li>
 		<li><a href="/vstopKnjigarnar/izpis" style="margin-right: 15px">Izpis</a></li>
 	</ul>
   </div>
@@ -80,31 +88,39 @@
 
 <form method="post" action="/vstopKnjigarnar/dodaj_knjigo">
 <div class="container">
-	<label><b>Naslov</b></label>
+	<label><h6><b>Naslov</b></h6></label>
 	<input type="text" placeholder="Naslov" name="naslov" required>
 	
-	<label><b>Avtor</b></label>
+	<label><h6><b>Avtor</b></h6></label>
 	<input type="text" placeholder="Ime in priimek avtorja" name="avtor" required>
 	
-	<label><b>Žanr</b></label>
-	<input type="number" placeholder="Žanr" name="zanr" required>
+	<label><h6><b>Žanr</b></h6></label>
+	<input type="number" placeholder="Žanr" name="zanr" min="1" max="5" required>
 	
-	<label><b>Leto izdaje</b></label>
-	<input type="number" placeholder="Leto izdaje" name="leto_izdaje" required>
+	<label><h6><b>Dobavitelj</b></h6></label>
+	<input list="text" placeholder="Dodaj dobavitelja" name="dobavitelj" required>
+	<datalist id="text">
+		% for dobavitelj in dobavitelji:
+			<option value="{{dobavitelj['ime_podjetja']}}">
+		% end
+	</datalist>
 	
-	<label><b>Format knjige</b></label>
-	<input type="number" placeholder="Format knjige" name="formatK" required>
+	<br></br>
 	
-	<label><b>Cena</b></label>
-	<input type="number" placeholder="Cena" name="cena" required>
+	<label><h6><b>Leto izdaje</b></h6></label>
+	<input type="number" placeholder="Leto izdaje" name="leto_izdaje" min="0" max="2018" required>
 	
-	<label><b>Opis</b></label>
+	<label><h6><b>Format knjige</b></h6></label>
+	<input type="number" placeholder="Format knjige" name="format" min="1" max="5" required>
+	
+	<label><h6><b>Cena</b></h6></label>
+	<input type="number" placeholder="Cena" name="cena" min="0" max="500" required>
+	
+	<label><h6><b>Opis</b></h6></label>
 	<input type="text" placeholder="Opis" name="opis" required>
-	
-	<label><b>Na zalogi</b></label>
-	<input type="number" placeholder="Koliko knjig je trenutno na zalogi." name="st_naZalogi" required>
-
-	<button type="submit">Dodaj</button>
+	<br></br>
+  
+	<button class="waves-effect waves-light btn indigo darken-4" type="submit" style="float: right;">Dodaj</button>
 	
 </div>
 </form>

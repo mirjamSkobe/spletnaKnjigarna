@@ -15,6 +15,7 @@ def dodajanje_v_kosarico(knjiga, kupec):
         return "Knjige trenutno ni na zalogi.<br><br>" +\
                "<a href=\"/stran_za_kupca\">Nazaj v knjigarno</a>"
 
+
 ##--> DOMAČA STRAN <--##
 @route('/')
 def domaca_stran():
@@ -30,6 +31,7 @@ def stran_za_knjigarnarja():
     return template(
         'seznam_knjig_knjigarnar',
         knjige2 = modeli.seznam_knjig_knjigarnar(),
+        dobavitelji = modeli.seznam_dobavitelji(),
     )
 
 ##--> VPIS KNJIGARNAR <--##
@@ -38,6 +40,7 @@ def vstopKnjigarnar():
     return template(
         'vstopKnjigarnar',
         knjige2 = modeli.seznam_knjig_knjigarnar(),
+        dobavitelji = modeli.seznam_dobavitelji(),
     )
 
 ##--> DODAJ KNJIGO <--##
@@ -45,6 +48,7 @@ def vstopKnjigarnar():
 def dodaj_knjigo():
     return template(
         'dodaj_knjigo',
+        dobavitelji = modeli.seznam_dobavitelji(),
     )
 
 @post('/vstopKnjigarnar/dodaj_knjigo')
@@ -53,11 +57,13 @@ def dodaj_knjigo_post():
     avtor = request.forms.get('avtor')
     zanr = request.forms.get('zanr')
     leto_izdaje = request.forms.get('leto_izdaje')
-    formatK = request.forms.get('formatK')
+    format = request.forms.get('format')
     opis = request.forms.get('opis')
     cena = request.forms.get('cena')
-    st_naZalogi = request.forms.get('st_naZalogi')
-    modeli.dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, formatK, opis, cena, st_naZalogi)
+    st_naZalogi = 0
+    modeli.dodaj_knjigo(naslov, avtor, zanr, leto_izdaje, format, opis, cena, st_naZalogi)
+    dobavitelj = request.forms.get('dobavitelj')
+    modeli.napolni(dobavitelj, naslov)
     redirect('/vstopKnjigarnar')
 
 ##--> SEZNAM DOBAVITELJEV <--##
@@ -65,7 +71,7 @@ def dodaj_knjigo_post():
 def seznam_dobaviteljev():
     return template(
         'seznam_dobavitelji',
-        dobavitelj = modeli.seznam_dobavitelji(),
+        dobavitelji = modeli.seznam_dobavitelji(),
     )
 
 ##--> DODAJ DOBAVITELJA <--##
@@ -73,6 +79,7 @@ def seznam_dobaviteljev():
 def dodaj_dobavitelja():
     return template(
         'dodaj_dobavitelja',
+        dobavitelji = modeli.seznam_dobavitelji(),
     )
 
 @post('/vstopKnjigarnar/dodaj_dobavitelja')     #ime funkcije = dodaj_knjigo
@@ -88,7 +95,8 @@ def dodaj_knjigo_post():
 def seznam_zakljucenih_narocil():
     return template(
         'zakljucena_narocila',
-        narocila = modeli.seznam_zakljucenih_narocil()
+        narocila = modeli.seznam_zakljucenih_narocil(),
+        dobavitelji = modeli.seznam_dobavitelji(),
     )
 
 ##--> ODPRTA NAROČILA <--##
@@ -96,7 +104,8 @@ def seznam_zakljucenih_narocil():
 def seznam_odprtih_narocil():
     return template(
         'odprta_narocila',
-        narocila = modeli.seznam_odprih_narocil()
+        narocila = modeli.seznam_odprih_narocil(),
+        dobavitelji = modeli.seznam_dobavitelji(),
     )
 
 ##--> PODATKI O NAROČILU <--##
@@ -298,6 +307,50 @@ def izpis_lastnik():
     seja.set('vpisani_ID', '')
     return "Admin, uspešno ste se izpisali.<br><br>" +\
            "<a href=\"/\">Vhodna stran</a>"
+
+##--> O KNJIGI LASTNIK <--##
+@get('/vstopKnjigarnar/o_knjigi_lastnik/<knjiga>')
+def o_knjigi(knjiga):
+    return template(
+        'o_knjigi_lastnik',
+        knjiga=modeli.o_knjigi(knjiga),
+    )
+
+##--> SPREMEMBA CENE <--##
+@post('/vstopKnjigarnar/o_knjigi_lastnik/<knjiga>')
+def sprememba_cene(knjiga):
+    ID = int(request.forms.ID)
+    cena = float(request.forms.cena)
+    modeli.spremeni_ceno(ID, cena)
+    redirect('/vstopKnjigarnar/seznam_knjig_knjigarnar')
+
+##--> NAROČI KNJIGO PRI DOBAVITELJU <--##
+@get('/vstopKnjigarnar/<ime_podjetja>')
+def naroci_dobavitelj(ime_podjetja):
+    return template(
+        'naroci_dobavitelj',
+        knjige = modeli.seznam_knjig_dobavitelja(ime_podjetja),
+        dobavitelji = modeli.seznam_dobavitelji(),
+        ime = ime_podjetja,
+    )    
+@post('/vstopKnjigarnar/<ime_podjetja>')
+def naroci_dobavitelj_post(ime_podjetja):
+    naslov = request.forms.get('knjiga')
+    print(naslov)
+    kolicina = int(request.forms.get('kolicina'))
+    cena = float(request.forms.get('cena'))
+    modeli.dodaj_v_tabelo(cena*kolicina, naslov, kolicina)
+    redirect('/vstopKnjigarnar')
+
+##--> VSE DOBAVNICE <--##
+@route('/vstopKnjigarnar/dobavnice')
+def vse_dobavnice():
+    return template(
+        'vse_dobavnice',
+        dobavitelji = modeli.seznam_dobavitelji(),
+        dobavnice = modeli.vse_dobavnice(),
+    )
+
 
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii
