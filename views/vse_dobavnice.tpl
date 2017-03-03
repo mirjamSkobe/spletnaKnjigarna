@@ -8,18 +8,16 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>           
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 	</head>
-	
 <style>
 	table {
 		font-family: arial, sans-serif;
 		border-collapse: collapse;
+		margin: 50px 50px;
 		overflow-y:scroll;
-		height:700px;
-		width:auto;
+		height:500px;
 		display:block;
 	}
 </style>
-
 <body>
 <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
@@ -60,7 +58,7 @@
 </nav>
 
 <div><h3 style="font-family:courier; text-align: center;">
-	Seznam knjig </h3>
+	Seznam dobaviteljev </h3>
 </div>
 
 <div id="main">
@@ -68,20 +66,22 @@
 <section class="container">
   <table class="bordered">
   <thead>
-	 <tr><th>Avtor</th><th>Naslov knjige</th><th>Na zalogi</th></tr>
+	 <tr><th>ID dobavnice</th><th>Naslov knjige</th><th>Količina</th><th>Cena</th></tr>
   </thead>
   <tbody>
-	 % for knjiga1 in knjige2:
+	 % for dobavnica in dobavnice:
 	 <tr>
 	 <td>
-	 {{knjiga1['avtor']}}
+	 {{dobavnica['id_dobavnica']}}
 	 </td>
 	 <td>
-	 <a href="/vstopKnjigarnar/o_knjigi_lastnik/{{knjiga1['ID']}}">
-	 {{knjiga1['naslov']}}
+	 {{dobavnica['naslov']}}
 	 </td>
 	 <td>
-	 {{knjiga1['st_naZalogi']}}
+	 {{dobavnica['koliko']}}
+	 </td>
+	 <td>
+	 {{dobavnica['znesek']}} €
 	 </td></tr>
 	 % end
   </tbody>

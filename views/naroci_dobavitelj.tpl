@@ -10,12 +10,6 @@
 	</head>
 
 <style>
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-
 /* Full-width input fields */
 	input[type=text], input[type=password] {
 		width: 100%;
@@ -33,82 +27,28 @@ img {
 		width: auto;
 	}
 
-	/* Center the image and position the close button */
-	.imgcontainer {
-		text-align: center;
-		margin: 24px 0 12px 0;
-		position: relative;
+	/* Set a style for all buttons */
+	button {
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100px;
 	}
 
-	img.avatar {
-		width: 20%;
-		border-radius: 30%;
-	}
-
+	/* Add padding to containers */
 	.container {
 		padding: 16px;
 	}
-
-	span.psw {
-		float: right;
-		padding-top: 16px;
-	}
-
-	/* The Modal (background) */
-	.modal {
-		display: none; /* Hidden by default */
-		position: fixed; /* Stay in place */
-		z-index: 1; /* Sit on top */
-		left: 0;
-		top: 0;
-		width: 100%; /* Full width */
-		height: 100%; /* Full height */
-		overflow: auto; /* Enable scroll if needed */
-		background-color: rgb(0,0,0); /* Fallback color */
-		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-		padding-top: 80px;
-	}
-
-	/* Modal Content/Box */
-	.modal-content {
-		background-color: #fefefe;
-		margin: auto;
-		border: 1px solid #888;
-		width: 50%;
-	}
-
-	.close:hover,
-	.close:focus {
-		color: red;
-		cursor: pointer;
-	}
-
-	/* Add Zoom Animation */
-	.animate {
-		-webkit-animation: animatezoom 0.6s;
-		animation: animatezoom 0.6s
-	}
-
-	@-webkit-keyframes animatezoom {
-		from {-webkit-transform: scale(0)} 
-		to {-webkit-transform: scale(1)}
-	}
-		
-	@keyframes animatezoom {
-		from {transform: scale(0)} 
-		to {transform: scale(1)}
-	}
 	
-	nav ul li a{
-		color: white;
-	}  
-	
-	IMG.displayed {
-		display: block;
-		margin-top: 5px;
-		margin-bottom: 15px;
-		margin-left: auto;
-		margin-right: auto 
+	form {
+	margin-left: 150px;
+	margin-right: 150px;
+	margin-top: 20px;
+	margin-bottom: 70px;
+	border: 3px solid #e7f5fe;
 	}
 </style>
 
@@ -123,6 +63,7 @@ img {
 <ul id="dropdown2" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a></li>
   <li><a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a></li>
+  <li><a href="/vstopKnjigarnar/dobavnice">Vse dobavnice</a></li>
 </ul>
 
 <ul id="dropdown3" class="dropdown-content">
@@ -151,6 +92,27 @@ img {
   </div>
 </nav>
 
+<form action="/vstopKnjigarnar/{{ime}}" method="post">
+	<label><h6><b>Knjiga</b></h6></label>
+	<input list="text" placeholder="Naslov knjige" name="knjiga" required>
+	<datalist id="text">
+		% for knjiga in knjige:
+			<option value="{{knjiga['naslov']}}"/>
+			<input type="hidden" name="id_knjiga" value="{{knjiga['ID']}}" />
+			<input type="hidden" name="cena" value="{{knjiga['cena']}}" />
+		% end
+	</datalist>
+
+	<br></br>
+	<label><h6><b>Količina</b></h6></label>
+	<input type="number" placeholder="Količina" name="kolicina" min="1" max="50" required>
+
+	<button class="waves-effect waves-light btn indigo darken-4" style="text-align: center; float: right;">Naroči</button>
+
+
+
+</form>
+
 <div><h3 style="font-family:courier; text-align: center;">
 	Dobavitelj:  {{ime}}</h3>
 </div>
@@ -163,21 +125,22 @@ img {
 	 <tr><th>Avtor</th><th>Naslov knjige</th><th>Na zalogi</th></tr>
   </thead>
   <tbody>
-	 % for knjiga in knjige:
-	 <tr>
-	 <td>
-	 {{knjiga['avtor']}}
-	 </td>
-	 <td>
-	 {{knjiga['naslov']}}
-	 </td>
-	 <td>
-	 {{knjiga['st_naZalogi']}}
-	 </td></tr>
+	% for knjiga in knjige:
+	<tr>
+	<td>
+	{{knjiga['avtor']}}
+	</td>
+	<td>
+	{{knjiga['naslov']}}
+	</td>
+	<td>
+	{{knjiga['st_naZalogi']}}
+	</td>
+	</tr>
 	 % end
   </tbody>
   </table>
- </section>
+  </section>
  
 </div>
 

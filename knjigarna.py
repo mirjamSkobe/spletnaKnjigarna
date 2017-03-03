@@ -332,7 +332,25 @@ def naroci_dobavitelj(ime_podjetja):
         knjige = modeli.seznam_knjig_dobavitelja(ime_podjetja),
         dobavitelji = modeli.seznam_dobavitelji(),
         ime = ime_podjetja,
+    )    
+@post('/vstopKnjigarnar/<ime_podjetja>')
+def naroci_dobavitelj_post(ime_podjetja):
+    naslov = request.forms.get('knjiga')
+    print(naslov)
+    kolicina = int(request.forms.get('kolicina'))
+    cena = float(request.forms.get('cena'))
+    modeli.dodaj_v_tabelo(cena*kolicina, naslov, kolicina)
+    redirect('/vstopKnjigarnar')
+
+##--> VSE DOBAVNICE <--##
+@route('/vstopKnjigarnar/dobavnice')
+def vse_dobavnice():
+    return template(
+        'vse_dobavnice',
+        dobavitelji = modeli.seznam_dobavitelji(),
+        dobavnice = modeli.vse_dobavnice(),
     )
+
 
 #==========================KODIRANJE GESEL====================================
 import hashlib, binascii
