@@ -11,13 +11,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 	</head>
 <style>
-.centered {
-  position: fixed;
-  top: 108px;
-  left: 30%;
-  margin-top: -50px;
-  margin-left: -100px;
-}
+
 
 /* Full-width input fields */
 	input[type=text], input[type=password] {
@@ -108,7 +102,7 @@
 	
 	IMG.displayed {
 		display: block;
-		margin-top: 5px;
+		margin-top: 2px;
 		margin-bottom: 15px;
 		margin-left: auto;
 		margin-right: auto 
@@ -125,30 +119,46 @@
     <div class="nav-wrapper indigo darken-4">
       <a class="brand-logo center">SPLETNA KNJIGARNA</a>
       	<ul id="nav-mobile" class="right hide-on-med-and-down">
-			<li><a href="javascript:void(0)">Kontakt</a></li>
+			<li><a class=" modal-trigger" href="#modal2">Kontakt</a></li>
 		</ul>
     </div>
   </nav>
 
+<!-- Modal Structure -->
+<div id="modal2" class="modal">
+  
+  <form class="modal-content animate" action="/" method="post">
+	<div class="imgcontainer">
+	  <img src="http://starfm1015.com/wp-content/uploads/2013/11/Contact-Us-EP.jpg" alt="Avatar" class="avatar">
+	</div>
+
+	<div class="container">
+		<p>elektornski naslov: info@spletnaknjigarna.si</p> 
+		<p> telefon: 01-55-555-555</p> 
+		<p> odprto od ponedeljka do petka: 9h - 17h</p>     
+	</div>
+  </form>
+</div>
+
 
 <section>
-	<div class="centered">
+	<div>
 		<IMG class="displayed"; src="http://writersrelief.com/wp-content/uploads/2016/02/peabody1.jpg" width=screen.availWidth  height="400">
 	</div>
 </section>
 
 <section>
 <div class="displayed">
-<div class = "centered">
+<div>
 	<a href="/stran_za_kupca?">
-		<button class="waves-effect waves-light btn-large indigo darken-4" style="margin-top: 500px">
+		<button class="waves-effect waves-light btn-large indigo darken-4" style="margin-left: 80px">
 		<h4>VSTOP ZA KUPCE</h4>
 		</button>
 	</a>
 
 
 <!-- Modal Trigger -->
-<button class="waves-effect waves-light btn-large indigo darken-4 modal-trigger" href="#modal1" style="margin-left: 125px; margin-top: 500px">
+<button class="waves-effect waves-light btn-large indigo darken-4 modal-trigger" href="#modal1" style="margin-left: 150px;">
 	<h4>VSTOP ZA LASTNIKA</h4>
 </button>
 </div>

@@ -9,18 +9,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 	</head>
 	
-<style>
-.centered {
-  position: fixed;
-  top: 114px;
-  left: 25%;
-  margin-top: -50px;
-  margin-left: -100px;
-}
-</style>
 
 <body>
-
 <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/seznam_knjig_knjigarnar?">Seznam knjig</a></li>
@@ -30,6 +20,7 @@
 <ul id="dropdown2" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a></li>
   <li><a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a></li>
+  <li><a href="/vstopKnjigarnar/dobavnice">Vse dobavnice</a></li>
 </ul>
 
 <ul id="dropdown3" class="dropdown-content">
@@ -60,7 +51,7 @@
 
 
 
-<div class="centered">
+<div>
 
 <div class="bg">
   <img src="http://marthaslibrary.com/wp-content/uploads/2015/06/book.png" width=screen.availWidth height="400">

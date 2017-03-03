@@ -270,3 +270,66 @@ def registracija(uporabnisko_ime, geslo, email, naslov, telefon):
     sql = '''INSERT INTO kupec (uporabnisko_ime, geslo, email, naslov, telefon) VALUES (?, ?, ?, ?, ?)'''
     con.execute(sql, [uporabnisko_ime, geslo, email, naslov, telefon])
     con.commit()
+
+def dodaj_v_tabelo(znesek, naslov, kolicina):
+    sql2 = '''INSERT INTO dobavnica (
+                          znesek
+                      )
+                      VALUES (
+                          0
+                      )'''
+    con.execute(sql2)
+    con.commit()
+
+    sql3 = '''SELECT ID FROM dobavnica WHERE znesek = 0'''
+
+    tukaj = con.execute(sql3).fetchone()
+    preveri = (znesek, tukaj["ID"],)
+    
+    sql3 = '''UPDATE dobavnica
+                 SET znesek = ?
+               WHERE ID LIKE ?'''
+    con.execute(sql3, preveri)
+    con.commit()
+
+    kaj = (naslov,)
+    sql6 = '''SELECT ID FROM knjiga WHERE naslov = ?'''
+    nas = con.execute(sql6, kaj).fetchone()
+    con.commit()
+
+    vnesi = (tukaj["ID"], nas["ID"], kolicina,)
+    sql4 = '''INSERT INTO dobavnica_vsebuje_knjiga (id_dobavnica, id_knjiga, koliko) VALUES (?, ?, ?)'''
+    con.execute(sql4, vnesi)
+    con.commit()
+
+    ali = (naslov,)
+    sql5 = '''UPDATE knjiga
+                 SET st_naZalogi = st_naZalogi + (
+                                       SELECT koliko
+                                         FROM dobavnica_vsebuje_knjiga
+                                              JOIN
+                                              knjiga ON (dobavnica_vsebuje_knjiga.id_knjiga = knjiga.ID) 
+                                   )
+               WHERE naslov = ?;'''
+    con.execute(sql5, ali)
+    con.commit()
+
+
+def vse_dobavnice():
+    sql = '''SELECT id_dobavnica,
+                    naslov,
+                    koliko,
+                    znesek
+               FROM dobavnica_vsebuje_knjiga
+                    JOIN
+                    knjiga ON (dobavnica_vsebuje_knjiga.id_knjiga = knjiga.ID) 
+                    JOIN
+                    dobavnica ON (dobavnica_vsebuje_knjiga.id_dobavnica = dobavnica.ID)'''
+    return list(con.execute(sql))
+
+
+
+
+
+
+    

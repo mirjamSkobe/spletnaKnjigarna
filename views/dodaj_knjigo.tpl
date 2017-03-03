@@ -52,6 +52,7 @@
 <ul id="dropdown2" class="dropdown-content">
   <li><a href="/vstopKnjigarnar/seznam_dobavitelji?">Seznam dobaviteljev</a></li>
   <li><a href="/vstopKnjigarnar/dodaj_dobavitelja">Dodaj dobavitelja</a></li>
+  <li><a href="/vstopKnjigarnar/dobavnice">Vse dobavnice</a></li>
 </ul>
 
 <ul id="dropdown3" class="dropdown-content">
@@ -94,21 +95,8 @@
 	<input type="text" placeholder="Ime in priimek avtorja" name="avtor" required>
 	
 	<label><h6><b>Žanr</b></h6></label>
-	<input type="number" placeholder="Žanr" name="zanr" required>
+	<input type="number" placeholder="Žanr" name="zanr" min="1" max="5" required>
 	
-	<label><h6><b>Leto izdaje</b></h6></label>
-	<input type="number" placeholder="Leto izdaje" name="leto_izdaje" required>
-	
-	<label><h6><b>Format knjige</b></h6></label>
-	<input type="number" placeholder="Format knjige" name="format" required>
-	
-	<label><h6><b>Cena</b></h6></label>
-	<input type="number" placeholder="Cena" name="cena" required>
-	
-	<label><h6><b>Opis</b></h6></label>
-	<input type="text" placeholder="Opis" name="opis" required>
-	<br></br>
-
 	<label><h6><b>Dobavitelj</b></h6></label>
 	<input list="text" placeholder="Dodaj dobavitelja" name="dobavitelj" required>
 	<datalist id="text">
@@ -116,8 +104,23 @@
 			<option value="{{dobavitelj['ime_podjetja']}}">
 		% end
 	</datalist>
+	
 	<br></br>
-	<button type="submit">Dodaj</button>
+	
+	<label><h6><b>Leto izdaje</b></h6></label>
+	<input type="number" placeholder="Leto izdaje" name="leto_izdaje" min="0" max="2018" required>
+	
+	<label><h6><b>Format knjige</b></h6></label>
+	<input type="number" placeholder="Format knjige" name="format" min="1" max="5" required>
+	
+	<label><h6><b>Cena</b></h6></label>
+	<input type="number" placeholder="Cena" name="cena" min="0" max="500" required>
+	
+	<label><h6><b>Opis</b></h6></label>
+	<input type="text" placeholder="Opis" name="opis" required>
+	<br></br>
+  
+	<button class="waves-effect waves-light btn indigo darken-4" type="submit" style="float: right;">Dodaj</button>
 	
 </div>
 </form>
