@@ -2,6 +2,9 @@ from bottle import *
 from bottlesession import session
 import modeli
 
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 seja = session()
 seja.set('vpisani_ime', 'gost')
 seja.set('vpisani_ID', '')
@@ -115,7 +118,8 @@ def narocilo(narocilo):
         'urejanje_narocila',
         narocilo = modeli.narocilo_podatki(narocilo),
         narocene_knjige = modeli.knjige_enega_racuna(narocilo),
-        zakljuceno = modeli.status_narocila(narocilo)
+        zakljuceno = modeli.status_narocila(narocilo),
+        dobavitelji = modeli.seznam_dobavitelji(),
         )
 
 ##--> SPREMENI STATUS NAROČILA <--##
@@ -335,11 +339,10 @@ def naroci_dobavitelj(ime_podjetja):
     )    
 @post('/vstopKnjigarnar/<ime_podjetja>')
 def naroci_dobavitelj_post(ime_podjetja):
-    naslov = request.forms.get('knjiga')
-    print(naslov)
+    id_knjige = request.forms.get('knjiga')
+    print(id_knjige)
     kolicina = int(request.forms.get('kolicina'))
-    cena = float(request.forms.get('cena'))
-    modeli.dodaj_v_tabelo(cena*kolicina, naslov, kolicina)
+    modeli.dodaj_v_tabelo(id_knjige, kolicina)
     redirect('/vstopKnjigarnar')
 
 ##--> VSE DOBAVNICE <--##
