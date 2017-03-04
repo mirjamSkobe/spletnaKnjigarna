@@ -39,7 +39,6 @@ def seznam_knjig_dobavitelja(ime_podjetja):
               WHERE dobavitelj.ime_podjetja = ?
               ORDER BY st_naZalogi, avtor'''
     return list(con.execute(sql,[ime_podjetja]))
-    con.commit()
 
 def dodaj_dobavitelja(ime_podjetja, naslov, email):
     sql = '''INSERT INTO dobavitelj (ime_podjetja, naslov, email) VALUES (?, ?, ?)'''
@@ -271,7 +270,7 @@ def registracija(uporabnisko_ime, geslo, email, naslov, telefon):
     con.execute(sql, [uporabnisko_ime, geslo, email, naslov, telefon])
     con.commit()
 
-def dodaj_v_tabelo(znesek, naslov, kolicina):
+def dodaj_v_tabelo(id_knjiga, kolicina):
     sql2 = '''INSERT INTO dobavnica (
                           znesek
                       )
@@ -281,28 +280,28 @@ def dodaj_v_tabelo(znesek, naslov, kolicina):
     con.execute(sql2)
     con.commit()
 
+    prev = (id_knjiga,)
+    sql = '''SELECT cena FROM knjiga WHERE ID = ?'''
+    cena = con.execute(sql, prev).fetchone()
+    znesek = cena["cena"]*kolicina
+
     sql3 = '''SELECT ID FROM dobavnica WHERE znesek = 0'''
 
     tukaj = con.execute(sql3).fetchone()
     preveri = (znesek, tukaj["ID"],)
     
-    sql3 = '''UPDATE dobavnica
+    sql1 = '''UPDATE dobavnica
                  SET znesek = ?
                WHERE ID LIKE ?'''
-    con.execute(sql3, preveri)
+    con.execute(sql1, preveri)
     con.commit()
 
-    kaj = (naslov,)
-    sql6 = '''SELECT ID FROM knjiga WHERE naslov = ?'''
-    nas = con.execute(sql6, kaj).fetchone()
-    con.commit()
-
-    vnesi = (tukaj["ID"], nas["ID"], kolicina,)
+    vnesi = (tukaj["ID"], id_knjiga, kolicina,)
     sql4 = '''INSERT INTO dobavnica_vsebuje_knjiga (id_dobavnica, id_knjiga, koliko) VALUES (?, ?, ?)'''
     con.execute(sql4, vnesi)
     con.commit()
 
-    ali = (naslov,)
+    ali = (id_knjiga,)
     sql5 = '''UPDATE knjiga
                  SET st_naZalogi = st_naZalogi + (
                                        SELECT koliko
@@ -310,7 +309,7 @@ def dodaj_v_tabelo(znesek, naslov, kolicina):
                                               JOIN
                                               knjiga ON (dobavnica_vsebuje_knjiga.id_knjiga = knjiga.ID) 
                                    )
-               WHERE naslov = ?;'''
+               WHERE ID = ?'''
     con.execute(sql5, ali)
     con.commit()
 

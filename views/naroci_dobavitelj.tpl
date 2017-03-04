@@ -97,9 +97,7 @@
 	<input list="text" placeholder="Naslov knjige" name="knjiga" required>
 	<datalist id="text">
 		% for knjiga in knjige:
-			<option value="{{knjiga['naslov']}}"/>
-			<input type="hidden" name="id_knjiga" value="{{knjiga['ID']}}" />
-			<input type="hidden" name="cena" value="{{knjiga['cena']}}" />
+			<option value="{{knjiga['ID']}}">{{knjiga['naslov']}}</option>
 		% end
 	</datalist>
 
