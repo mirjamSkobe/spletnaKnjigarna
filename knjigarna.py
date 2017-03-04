@@ -318,6 +318,8 @@ def o_knjigi(knjiga):
     return template(
         'o_knjigi_lastnik',
         knjiga=modeli.o_knjigi(knjiga),
+        dobavitelji = modeli.seznam_dobavitelji(),
+        ID_upor = seja.read('vpisani_ID')
     )
 
 ##--> SPREMEMBA CENE <--##
